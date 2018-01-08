@@ -25,6 +25,9 @@ public class Connect4  extends JFrame implements ActionListener{
     private double[] circley={.9,.8,.7,.6,.5,.4,.3};
     private double circlesize=.05;
     private String [][] Connected;
+    private JMenuBar menuBar;
+    private int cNumber;
+   
     
     Color Background1 = new Color(242, 229, 255);
     Color framec = new Color(125, 217, 254);
@@ -77,6 +80,21 @@ public class Connect4  extends JFrame implements ActionListener{
 	Player2.setEnabled(true);
 	Player2.addActionListener(this);
 	Player2.setVisible(true);
+	menuBar = new JMenuBar();
+	JMenu mode  = new JMenu("Choose Connect-N Mode");
+	JMenuItem Connect4 = new JMenuItem("Connect-4");
+	JMenuItem Connect5 = new JMenuItem("Connect-5");
+	JMenuItem Connect6 = new JMenuItem("Connect-6");
+	JMenuItem Connect7 = new JMenuItem("Connect-7");
+	Connect4.addActionListener(this);
+	Connect4.addActionListener(this);
+	Connect4.addActionListener(this);
+	Connect4.addActionListener(this);
+	file.add(eMenuItem);
+
+        menubar.add(file);
+
+
 	pane.add(Player1);
 	pane.add(Player2);
 	Go.repaint();
