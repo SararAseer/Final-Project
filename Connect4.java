@@ -25,6 +25,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private double[] circley={.9,.8,.7,.6,.5,.4,.3};
     private double circlesize=.05;
     private String [][] Connected;
+    private int cNumber;
     
     
     Color Background1 = new Color(242, 229, 255);
@@ -132,9 +133,14 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	
     }
-    public boolean Connected(){
+    public boolean Connected(int playermove){
+        try{
+	}
+	catch(ArrayIndexOutOfBoundsException e){
+	       return false;
+	   }
+	catch(IndexOutOfBoundsException e){  
+	       return false;
+	   }
     }
-
-
-
 }
