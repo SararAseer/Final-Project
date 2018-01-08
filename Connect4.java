@@ -26,6 +26,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private double circlesize=.05;
     private String [][] Connected;
     
+    
     Color Background1 = new Color(242, 229, 255);
     Color framec = new Color(125, 217, 254);
 
@@ -130,6 +131,8 @@ public class Connect4  extends JFrame implements ActionListener{
 	    Start.setEnabled(false);
 	}
 	
+    }
+    public boolean Connected(){
     }
 
 
