@@ -1,0 +1,4 @@
+*.pyc
+*.class
+*.java~
+*.DS_Store
