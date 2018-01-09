@@ -133,14 +133,35 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	
     }
-    public boolean Connected(int playermove){
-        try{
+    //checks if a player has won after every move
+    /* public boolean Connected(int col,String color){
+        try{   
 	}
 	catch(ArrayIndexOutOfBoundsException e){
-	       return false;
 	   }
 	catch(IndexOutOfBoundsException e){  
-	       return false;
 	   }
+	   }*/
+    public boolean checkVertical(int row,int col, String color){
+	try{
+	    int sum = 0;
+	    boolean checker = true;
+	    while (checker && sum<cNumber){
+		if (!(Connected[row+1][col].equals(color))){
+		    checker=false;
+	    }
+		else{
+		    sum++;;
+		}
+	    }
+	    return (checker && sum==cNumber);
+	}catch(ArrayIndexOutOfBoundsException e){
+	    return false;
+	}
+	catch(IndexOutOfBoundsException e){
+	    return false;
+	}
     }
+    //for check horizontal:check left and right and add, if greater than cNumber, return true
+
 }
