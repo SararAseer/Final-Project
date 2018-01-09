@@ -161,4 +161,117 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	
     }
+    //checks if a player has won after every move
+    public boolean Connected(int row,int col,String color){
+	return (checkVertical(row,col,color)   ||
+	        checkHorizontal(row,col,color) ||
+	        checkDiagonal1(row,col,color)  ||
+	        checkDiagonal2(row,col,color));
+     }
+    public boolean checkVertical(int row,int col, String color){
+	try{
+	    int sum = 0;
+	    boolean checker = true;
+	    while (checker && sum<cNumber){
+		if (!(Connected[row+1][col].equals(color))){
+		    checker=false;
+	    }
+		else{
+		    sum++;;
+		}
+	    }
+	    return (checker && sum==cNumber);
+	}catch(ArrayIndexOutOfBoundsException e){
+	    return false;
+	}
+	catch(IndexOutOfBoundsException e){
+	    return false;
+	}
+    }
+    public boolean checkHorizontal(int row,int col, String color){
+	try{
+	    int sumRight =0;
+	    int sumLeft=0;
+	    boolean checkerRight = true;
+	    boolean checkerLeft = true;
+	    while (checkerRight){
+			if (!(Connected[row][col+1].equals(color))){
+		    checkerRight=false;
+	    }
+		else{
+		    sumRight++;;
+		}
+	    }
+	    while (checkerLeft){
+			if (!(Connected[row][col-1].equals(color))){
+		    checkerLeft=false;
+	    }
+		else{
+		    sumLeft++;;
+		}
+	    }
+	    return (sumRight + sumLeft >= cNumber);
+	}
+	catch(ArrayIndexOutOfBoundsException e){}
+	catch(IndexOutOfBoundsException e){}
+	return false;
+    }
+    // checks top left to bottom right
+     public boolean checkDiagonal1(int row,int col, String color){
+	try{
+	    int sumRight =0;
+	    int sumLeft=0;
+	    boolean checkerRight = true;
+	    boolean checkerLeft = true;
+	    while (checkerRight){
+			if (!(Connected[row+1][col+1].equals(color))){
+		    checkerRight=false;
+	    }
+		else{
+		    sumRight++;;
+		}
+	    }
+	    while (checkerLeft){
+			if (!(Connected[row-1][col-1].equals(color))){
+		    checkerLeft=false;
+	    }
+		else{
+		    sumLeft++;;
+		}
+	    }
+	    return (sumRight + sumLeft >= cNumber);
+	}
+	catch(ArrayIndexOutOfBoundsException e){}
+	catch(IndexOutOfBoundsException e){}
+	return false;
+     }
+    //checks bottom left to top right 
+     public boolean checkDiagonal2(int row,int col, String color){
+	try{
+	    int sumRight =0;
+	    int sumLeft=0;
+	    boolean checkerRight = true;
+	    boolean checkerLeft = true;
+	    while (checkerRight){
+			if (!(Connected[row+1][col-1].equals(color))){
+		    checkerRight=false;
+	    }
+		else{
+		    sumRight++;;
+		}
+	    }
+	    while (checkerLeft){
+			if (!(Connected[row-1][col+1].equals(color))){
+		    checkerLeft=false;
+	    }
+		else{
+		    sumLeft++;;
+		}
+	    }
+	    return (sumRight + sumLeft >= cNumber);
+	}
+	catch(ArrayIndexOutOfBoundsException e){}
+	catch(IndexOutOfBoundsException e){}
+	return false;
+     }
 }
