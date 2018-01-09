@@ -29,7 +29,6 @@ public class Connect4  extends JFrame implements ActionListener{
     private String [][] Connected;
     private int cNumber;
     private JComboBox<String> mode;
-
     
     Color Background1 = new Color(242, 229, 255);
     Color framec = new Color(125, 217, 254);
@@ -49,6 +48,13 @@ public class Connect4  extends JFrame implements ActionListener{
 	 Toolkit tk = Toolkit.getDefaultToolkit();  
 	int y = ((int) tk.getScreenSize().getHeight());
 	return (int)(y*newy);
+
+    }
+
+
+    public void createBoard(int x){
+
+
 
     }
 
@@ -158,6 +164,10 @@ public class Connect4  extends JFrame implements ActionListener{
 	    if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		cNumber=7;
 	    }
+	}
+	if(e.getSource() == Go){
+	    createBoard(cNumber);
+	    
 	}
 	
     }
@@ -274,4 +284,5 @@ public class Connect4  extends JFrame implements ActionListener{
 	catch(IndexOutOfBoundsException e){}
 	return false;
      }
+
 }
