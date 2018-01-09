@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import javax.swing.UIManager;
+import javax.swing.plaf.ColorUIResource;
 
 
 public class Connect4  extends JFrame implements ActionListener{
@@ -25,9 +27,8 @@ public class Connect4  extends JFrame implements ActionListener{
     private double[] circley={.9,.8,.7,.6,.5,.4,.3};
     private double circlesize=.05;
     private String [][] Connected;
-    private JMenuBar menuBar;
     private int cNumber;
-   
+    private JComboBox<String> mode;
     
     Color Background1 = new Color(242, 229, 255);
     Color framec = new Color(125, 217, 254);
@@ -80,24 +81,20 @@ public class Connect4  extends JFrame implements ActionListener{
 	Player2.setEnabled(true);
 	Player2.addActionListener(this);
 	Player2.setVisible(true);
-	menuBar = new JMenuBar();
-	JMenu mode  = new JMenu("Choose Connect-N Mode");
-	JMenuItem Connect4 = new JMenuItem("Connect-4");
-	JMenuItem Connect5 = new JMenuItem("Connect-5");
-	JMenuItem Connect6 = new JMenuItem("Connect-6");
-	JMenuItem Connect7 = new JMenuItem("Connect-7");
-	Connect4.addActionListener(this);
-	Connect4.addActionListener(this);
-	Connect4.addActionListener(this);
-	Connect4.addActionListener(this);
-	file.add(eMenuItem);
-
-        menubar.add(file);
-
-
+	String[] options = new String[] {"Connect-4","Connect-5","Connect-6","Connect-7"};
+	mode = new JComboBox<>(options);
+	mode.setBounds(sizex(.4),sizey(.1),sizex(.2),sizey(.025));
+	mode.setOpaque(true);
+	mode.setForeground(Color.BLACK);
+	mode.setBackground(framec);
+	mode.setEnabled(true);
+	mode.addActionListener(this);
+	mode.setVisible(true);
+	pane.add(mode);
 	pane.add(Player1);
 	pane.add(Player2);
 	Go.repaint();
+	mode.repaint();
 	Player1.repaint();
 	Player2.repaint();
 
@@ -146,6 +143,20 @@ public class Connect4  extends JFrame implements ActionListener{
 	    Start.setBackground(Background1);
 	    IntroScreen();
 	    Start.setEnabled(false);
+	}
+	if(e.getSource() == mode){
+	    if (((String)mode.getSelectedItem()).equals("Connect-4")){
+		cNumber=4;
+	    }
+	    if (((String)mode.getSelectedItem()).equals("Connect-5")){
+		cNumber=5;
+	    }
+	    if (((String)mode.getSelectedItem()).equals("Connect-6")){
+		cNumber=6;
+	    }
+	    if (((String)mode.getSelectedItem()).equals("Connect-7")){
+		cNumber=7;
+	    }
 	}
 	
     }
