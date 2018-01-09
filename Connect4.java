@@ -51,6 +51,12 @@ public class Connect4  extends JFrame implements ActionListener{
 
     }
 
+    public void createBoard(int x){
+
+
+
+    }
+
     public void IntroScreen(){
 	pane = this.getContentPane();
 	Toolkit tk = Toolkit.getDefaultToolkit();  
@@ -160,7 +166,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 
 	if(e.getSource() == Go){
-	    
+	    createBoard(cNumber);
 	    
 	}
 	
