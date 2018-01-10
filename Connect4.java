@@ -35,13 +35,20 @@ public class Connect4  extends JFrame implements ActionListener{
 
 
 
-    
+    public void slotOptions(){
+	slotOptions=new String [4][];
+	slotOptions[0]= new String [7];
+	slotOptions[1]= new String [7];
+	slotOptions[2]= new String [9];
+	slotOptions[3]= new String [11];
+	
+    }
   
     public void setVariables(){
-	slotOptions=new String [4][];
+	slotOptions();
 	Background1 = new Color(242, 229, 255);
 	framec = new Color(125, 217, 254);
-	}
+    }
 
     public static void main(String[] args) {
 	Connect4 Test = new Connect4();
