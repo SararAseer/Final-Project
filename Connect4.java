@@ -41,6 +41,12 @@ public class Connect4  extends JFrame implements ActionListener{
 	slotOptions[1]= new String [7];
 	slotOptions[2]= new String [9];
 	slotOptions[3]= new String [11];
+	for (int i =0 ; i < 3 ; i++){
+	    for (int x =0 ; x < slotOptions[i].length ; x++){	       
+		slotOptions[i][x]="Column"+" "+(""+(x+1));
+	    }
+
+	}
 	
     }
   
@@ -131,7 +137,9 @@ public class Connect4  extends JFrame implements ActionListener{
     }
     
     public Connect4(){
+	setVariables();
 	Start();
+	
     }
     public void paint(Graphics g){
 
