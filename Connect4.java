@@ -29,9 +29,19 @@ public class Connect4  extends JFrame implements ActionListener{
     private String [][] Connected;
     private int cNumber;
     private JComboBox<String> mode;
+    private String slotOptions[][];
+    private Color Background1;
+    private Color framec;
+
+
+
     
-    Color Background1 = new Color(242, 229, 255);
-    Color framec = new Color(125, 217, 254);
+  
+    public void setVariables(){
+	slotOptions=new String [4][];
+	Background1 = new Color(242, 229, 255);
+	framec = new Color(125, 217, 254);
+	}
 
     public static void main(String[] args) {
 	Connect4 Test = new Connect4();
@@ -179,8 +189,9 @@ public class Connect4  extends JFrame implements ActionListener{
 	    Go.setBackground(Background1);
 	    Player1.setEditable(false);
 	    Player2.setEditable(false);
-	    pane.remove(mode);
-	    pane.repaint();
+	    mode.removeAllItems();
+	    mode = new JComboBox<>(slotOptions[cNumber-4]);
+	    mode.repaint();
 	    repaint();
 	    Go.setEnabled(false);		    
 	}
