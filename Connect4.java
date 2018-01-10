@@ -106,6 +106,12 @@ public class Connect4  extends JFrame implements ActionListener{
 	Player2.repaint();
 
     }
+
+    public void  createTB(){
+    }
+
+    public void  createGB(){
+    }
     
     public Connect4(){
 	Start();
@@ -166,6 +172,8 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	if(e.getSource() == Go){
+	    createTB;
+	    createGB;
 	    createBoard(cNumber);
 	    
 	}
