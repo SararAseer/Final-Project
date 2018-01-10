@@ -196,10 +196,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		cNumber=7;
 	    }
 	}
-	if(e.getSource() == Go){
-	    createTB();
-	    createGB();
-	    createBoard(cNumber);	    
+	if(e.getSource() == Go){    
 	    Go.setText("");
 	    Go.setBackground(Background1);
 	    Player1.setEditable(false);
@@ -207,6 +204,9 @@ public class Connect4  extends JFrame implements ActionListener{
 	    mode.removeAllItems();
 	    mode = new JComboBox<>(slotOptions[cNumber-4]);
 	    mode.repaint();
+	    createTB();
+	    createGB();
+	    createBoard(cNumber);
 	    repaint();
 	    Go.setEnabled(false);		    
 	}
