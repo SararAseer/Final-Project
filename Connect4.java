@@ -172,10 +172,17 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	if(e.getSource() == Go){
-	    createTB;
-	    createGB;
-	    createBoard(cNumber);
-	    
+	    createTB();
+	    createGB();
+	    createBoard(cNumber);	    
+	    Go.setText("");
+	    Go.setBackground(Background1);
+	    Player1.setEditable(false);
+	    Player2.setEditable(false);
+	    pane.remove(mode);
+	    pane.repaint();
+	    repaint();
+	    Go.setEnabled(false);		    
 	}
 	
     }
