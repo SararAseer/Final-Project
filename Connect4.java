@@ -14,10 +14,13 @@ import javax.swing.plaf.ColorUIResource;
 
 public class Connect4  extends JFrame implements ActionListener{
     private Container pane;
+    private double intial;
+    private int columnSelected;
     private JButton Surrender;
-    private JRadioButton Mode;
+    private boolean dropCircle;
     private JButton Start;
     private JButton Go;
+    private JButton Reset;
     private JButton Instructions;
     private JTextField Player1;
     private JTextField Player2;
@@ -29,10 +32,14 @@ public class Connect4  extends JFrame implements ActionListener{
     private String [][] Connected;
     private int cNumber;
     private JComboBox<String> mode;
+    private JComboBox<String> set;
     private String slotOptions[][];
     private Color Background1;
     private Color framec;
-
+    private String [] options;
+    private boolean modeActive;
+    private double down;
+    private boolean paintit;
 
 
     public void slotOptions(){
@@ -51,9 +58,12 @@ public class Connect4  extends JFrame implements ActionListener{
     }
   
     public void setVariables(){
+	paintit=false;
 	slotOptions();
 	Background1 = new Color(242, 229, 255);
 	framec = new Color(125, 217, 254);
+	options = new String[] {"Connect-4","Connect-5","Connect-6","Connect-7"};
+
     }
 
     public static void main(String[] args) {
@@ -74,12 +84,20 @@ public class Connect4  extends JFrame implements ActionListener{
 
     }
 
-
-    public void createBoard(int x){
-
-
+    public int size(int x,double y){
+	return (int)(x*y);
 
     }
+
+
+    
+	
+
+
+
+    
+
+    
 
     public void IntroScreen(){
 	pane = this.getContentPane();
@@ -111,7 +129,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	Player2.setEnabled(true);
 	Player2.addActionListener(this);
 	Player2.setVisible(true);
-	String[] options = new String[] {"Connect-4","Connect-5","Connect-6","Connect-7"};
 	mode = new JComboBox<>(options);
 	mode.setBounds(sizex(.4),sizey(.1),sizex(.2),sizey(.025));
 	mode.setOpaque(true);
@@ -141,29 +158,65 @@ public class Connect4  extends JFrame implements ActionListener{
 	Start();
 	
     }
+
+     public void circlem(Graphics g){
+	Toolkit tk = Toolkit.getDefaultToolkit();
+	int ry=((int) tk.getScreenSize().getHeight());
+	int ry2=((int) (tk.getScreenSize().getHeight()*.25));
+	int x = ((int) tk.getScreenSize().getWidth());  
+	int y = ((int) (tk.getScreenSize().getHeight()*.15));
+	int recty= ((int) (tk.getScreenSize().getHeight()*.015));
+	g.setColor(Color.RED);
+	int xSize = ((int) tk.getScreenSize().getWidth());  
+	int ySize = ((int) tk.getScreenSize().getHeight());
+	int cx= (int)(xSize*.6);
+	int cy=(int) (ySize*.9);
+	
+	g.fillOval(size(cx,circlex[0]),size(cy,down),size(cx,.05),size(cy,.05));
+	
+
+
+    }
+    
     public void paint(Graphics g){
+	if (paintit){
+	    Go.setText("");
+	    Go.setBackground(Background1);
+	    g.setColor(framec);
+	    for (int a =0; a<circlex.length; a++){
+		for (int i =0; i<circley.length; i++){
+		    g.fillOval(sizex(circlex[a]),sizey(circley[i]),sizex(.05),sizey(.05));
 
+		}
+	    }
+	}
+	if (dropCircle){
+	    g.fillOval(sizex(circlex[columnSelected]),sizey(initial),sizex(.05),sizey(.05));
 
+	     
+
+	}
 
     }  
-  
-		
+	
 
     
     public void  Start(){
+	Color myColour = new Color (0, 0, 0,127);
 	pane = this.getContentPane();
 	Toolkit tk = Toolkit.getDefaultToolkit();
-	this.setSize(sizex(.99),sizey(.99));
-						   
+	this.setSize(sizex(.99),sizey(.99));	
 	this.setLayout(null);
 	this.setTitle("Connect-4");
 	this.setLocationRelativeTo(null);
 	this.setBackground(Background1);
+	pane.setBackground(Background1);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 	Start = new JButton("Start");
 	Start.setBounds(sizex(.4),sizey(.4),sizex(.1),sizey(.1));
 	Start.setBorderPainted(false);
 	Start.setOpaque(true);
+	Start.setContentAreaFilled(true);
 	Start.setForeground(Color.BLACK);
 	Start.setBackground(framec);
 	Start.setEnabled(true);
@@ -197,21 +250,28 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	if(e.getSource() == Go){    
-	    Go.setText("");
-	    Go.setBackground(Background1);
+	   
 	    Player1.setEditable(false);
 	    Player2.setEditable(false);
-	    mode.removeAllItems();
-	    mode = new JComboBox<>(slotOptions[cNumber-4]);
-	    mode.repaint();
+	    int num=cNumber-4;
+	    // mode.removeAllItems();
+	    // mode.setVisible(false);
+	    //pane.remove(mode);
+	    //pane.revalidate(); // to invoke the layout manager
+	    //pane.repaint();
+	    // mode.addItem("item text");
+	    //String [] list= slotOptions[0];
+	    //mode.setModel(new DefaultComboBoxModel(list));
 	    createTB();
 	    createGB();
-	    createBoard(cNumber);
+	    Go.repaint();
+	    paintit=true;
+	    // pane.repaint();
 	    repaint();
-	    Go.setEnabled(false);		    
 	}
 	
     }
+    
     //checks if a player has won after every move
     public boolean Connected(int row,int col,String color){
 	return (checkVertical(row,col,color)   ||
