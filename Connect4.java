@@ -194,15 +194,14 @@ public class Connect4  extends JFrame implements ActionListener{
 		    sum++;
 		    rowDown--;
 		}
-		}
+	    }
 	    // System.out.println(sum);
 	    //System.out.println(cNumber);
 	    //System.out.println(sum>=cNumber);
 	    return sum >= cNumber;
 	}
-	catch(ArrayIndexOutOfBoundsException e){
-	    System.out.println(e);}
-	catch(IndexOutOfBoundsException e){System.out.println(e);}
+	catch(ArrayIndexOutOfBoundsException e){}
+	catch(IndexOutOfBoundsException e){}
 	return false;
     }
     public boolean checkHorizontal(int row,int col, String color){
@@ -236,6 +235,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	catch(IndexOutOfBoundsException e){}
 	return false;
     }
+    //checks top left to bottom right
     public boolean checkDiagonal1(int row,int col, String color){
 	try{
 	    int rightCol=col;
@@ -250,7 +250,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		    checkerRight=false;
 		}
 		else{
-		    System.out.println("right;" + sum);
+		    //System.out.println("right;" + sum);
 		    sum++;
 		    rightCol++;
 		    rowUp++;
@@ -261,7 +261,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		    checkerLeft=false;
 		}
 		else{
-		    System.out.println("left;" + sum);
+		    //System.out.println("left;" + sum);
 		    sum++;
 		    leftCol--;
 		    rowDown--;
@@ -274,32 +274,42 @@ public class Connect4  extends JFrame implements ActionListener{
 	return false;
     }
     //checks bottom left to top right 
-     public boolean checkDiagonal2(int row,int col, String color){
+        public boolean checkDiagonal2(int row,int col, String color){
 	try{
-	    int sumRight =0;
-	    int sumLeft=0;
+	    int rightCol=col;
+	    int leftCol=col;
+	    int rowUp=row;
+	    int rowDown=row;
+	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerRight){
-			if (!(Connected[row+1][col-1].equals(color))){
-		    checkerRight=false;
-	    }
-		else{
-		    sumRight++;;
-		}
-	    }
-	    while (checkerLeft){
-			if (!(Connected[row-1][col+1].equals(color))){
+	    while (checkerLeft && leftCol>0 && rowUp<data.length-1){ //&& leftCol>0 &&  rowDown>0){
+		if (!(data[rowUp+1][leftCol-1].equals(color))){
 		    checkerLeft=false;
-	    }
+		}
 		else{
-		    sumLeft++;;
+		    //System.out.println("left;" + sum);
+		    sum++;
+		    leftCol--;
+		    rowUp++;
 		}
 	    }
-	    return (sumRight + sumLeft >= cNumber);
+	    while (checkerRight && rightCol<data[0].length-1 && rowDown>0){ //&& rightCol<data[0].length-1 && rowUp<data.length-1){
+		if (!(data[rowDown-1][rightCol+1].equals(color))){
+		    checkerRight=false;
+		}
+		else{
+		    //System.out.println("right;" + sum);
+		    sum++;
+		    rightCol++;
+		    rowDown--;
+		}
+	    }
+	    return sum >= cNumber;
 	}
+
 	catch(ArrayIndexOutOfBoundsException e){}
 	catch(IndexOutOfBoundsException e){}
 	return false;
-     }
+    }
 }
