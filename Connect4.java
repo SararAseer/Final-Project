@@ -26,7 +26,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private double[] circlex={.05,.17,.29,.41,.53,.65,.77};
     private double[] circley={.9,.8,.7,.6,.5,.4,.3};
     private double circlesize=.05;
-    private String [][] Connected;
+    private String [][] data;
     private int cNumber;
     private JComboBox<String> mode;
     
@@ -171,14 +171,18 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	
     }
-    //checks if a player has won after every move
-    public boolean Connected(int row,int col,String color){
-	return (checkVertical(row,col,color)   ||
-	        checkHorizontal(row,col,color) ||
-	        checkDiagonal1(row,col,color)  ||
-	        checkDiagonal2(row,col,color));
-     }
-         public boolean checkVertical(int row,int col, String color){
+    public boolean Connected(int col,String color){
+	int r=0;
+	while (r<data.length-1 && (data[r][col].equals("_"))){
+	    r++;
+	}
+	//System.out.println("Connected row:"+r);
+	return (checkVertical(r,col,color)   ||
+		checkHorizontal(r,col,color) ||
+		checkDiagonal1(r,col,color)  ||
+		checkDiagonal2(r,col,color));
+    }
+    public boolean checkVertical(int row,int col, String color){
 	try{
 	    //System.out.println(data.length);
 	    int rowUp=row;
@@ -193,7 +197,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		else{
 		    sum++;
 		    rowUp++;
-		    System.out.println(rowUp);
+		    //System.out.println(rowUp);
 		}
 	    }
 	    while (checkerDown && rowDown>0){
@@ -205,13 +209,11 @@ public class Connect4  extends JFrame implements ActionListener{
 		    rowDown--;
 		}
 	    }
-	    // System.out.println(sum);
-	    //System.out.println(cNumber);
-	    //System.out.println(sum>=cNumber);
 	    return sum >= cNumber;
 	}
-	catch(ArrayIndexOutOfBoundsException e){}
-	catch(IndexOutOfBoundsException e){}
+	catch(ArrayIndexOutOfBoundsException e){
+	    System.out.println(e);}
+	catch(IndexOutOfBoundsException e){System.out.println(e);}
 	return false;
     }
     public boolean checkHorizontal(int row,int col, String color){
@@ -245,7 +247,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	catch(IndexOutOfBoundsException e){}
 	return false;
     }
-    //checks top left to bottom right
+    //top left to bottom right
     public boolean checkDiagonal1(int row,int col, String color){
 	try{
 	    int rightCol=col;
@@ -283,8 +285,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	catch(IndexOutOfBoundsException e){}
 	return false;
     }
-    //checks bottom left to top right 
-        public boolean checkDiagonal2(int row,int col, String color){
+    public boolean checkDiagonal2(int row,int col, String color){
 	try{
 	    int rightCol=col;
 	    int leftCol=col;
@@ -317,10 +318,15 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	    return sum >= cNumber;
 	}
-
+	
 	catch(ArrayIndexOutOfBoundsException e){}
 	catch(IndexOutOfBoundsException e){}
 	return false;
-	}
     }
 }
+
+
+
+
+
+
