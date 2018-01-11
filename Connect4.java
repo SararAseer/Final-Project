@@ -178,111 +178,149 @@ public class Connect4  extends JFrame implements ActionListener{
 	        checkDiagonal1(row,col,color)  ||
 	        checkDiagonal2(row,col,color));
      }
-    public boolean checkVertical(int row,int col, String color){
+         public boolean checkVertical(int row,int col, String color){
 	try{
-	    int sum = 0;
-	    boolean checker = true;
-	    while (checker && sum<cNumber){
-		if (!(Connected[row+1][col].equals(color))){
-		    checker=false;
-	    }
+	    //System.out.println(data.length);
+	    int rowUp=row;
+	    int rowDown=row;
+	    int sum=1;
+	    boolean checkerUp = true;
+	    boolean checkerDown = true;
+	    while (checkerUp && rowUp<data.length-1){
+		if (!(data[rowUp+1][col].equals(color))){
+		    checkerUp=false;
+		}
 		else{
-		    sum++;;
+		    sum++;
+		    rowUp++;
+		    System.out.println(rowUp);
 		}
 	    }
-	    return (checker && sum==cNumber);
-	}catch(ArrayIndexOutOfBoundsException e){
-	    return false;
+	    while (checkerDown && rowDown>0){
+		if (!(data[rowDown-1][col].equals(color))){
+		    checkerDown=false;
+		}
+		else{
+		    sum++;
+		    rowDown--;
+		}
+	    }
+	    // System.out.println(sum);
+	    //System.out.println(cNumber);
+	    //System.out.println(sum>=cNumber);
+	    return sum >= cNumber;
 	}
-	catch(IndexOutOfBoundsException e){
-	    return false;
-	}
+	catch(ArrayIndexOutOfBoundsException e){}
+	catch(IndexOutOfBoundsException e){}
+	return false;
     }
     public boolean checkHorizontal(int row,int col, String color){
 	try{
-	    int sumRight =0;
-	    int sumLeft=0;
+	    int rightCol=col;
+	    int leftCol=col;
+	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerRight){
-			if (!(Connected[row][col+1].equals(color))){
+	    while (checkerRight && rightCol<data[0].length-1){
+		if (!(data[row][rightCol+1].equals(color))){
 		    checkerRight=false;
-	    }
+		}
 		else{
-		    sumRight++;;
+		    sum++;
+		    rightCol++;
 		}
 	    }
-	    while (checkerLeft){
-			if (!(Connected[row][col-1].equals(color))){
+	    while (checkerLeft && leftCol>0){
+		if (!(data[row][leftCol-1].equals(color))){
 		    checkerLeft=false;
-	    }
+		}
 		else{
-		    sumLeft++;;
+		    sum++;
+		    leftCol--;
 		}
 	    }
-	    return (sumRight + sumLeft >= cNumber);
+	    return sum >= cNumber;
 	}
 	catch(ArrayIndexOutOfBoundsException e){}
 	catch(IndexOutOfBoundsException e){}
 	return false;
     }
-    // checks top left to bottom right
-     public boolean checkDiagonal1(int row,int col, String color){
+    //checks top left to bottom right
+    public boolean checkDiagonal1(int row,int col, String color){
 	try{
-	    int sumRight =0;
-	    int sumLeft=0;
+	    int rightCol=col;
+	    int leftCol=col;
+	    int rowUp=row;
+	    int rowDown=row;
+	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerRight){
-			if (!(Connected[row+1][col+1].equals(color))){
+	    while (checkerRight && rightCol<data[0].length-1 && rowUp<data.length-1){
+		if (!(data[rowUp+1][rightCol+1].equals(color))){
 		    checkerRight=false;
-	    }
+		}
 		else{
-		    sumRight++;;
+		    //System.out.println("right;" + sum);
+		    sum++;
+		    rightCol++;
+		    rowUp++;
 		}
 	    }
-	    while (checkerLeft){
-			if (!(Connected[row-1][col-1].equals(color))){
+	    while (checkerLeft && leftCol>0 &&  rowDown>0){
+		if (!(data[rowDown-1][leftCol-1].equals(color))){
 		    checkerLeft=false;
-	    }
+		}
 		else{
-		    sumLeft++;;
+		    //System.out.println("left;" + sum);
+		    sum++;
+		    leftCol--;
+		    rowDown--;
 		}
 	    }
-	    return (sumRight + sumLeft >= cNumber);
+	    return sum >= cNumber;
 	}
 	catch(ArrayIndexOutOfBoundsException e){}
 	catch(IndexOutOfBoundsException e){}
 	return false;
-     }
+    }
     //checks bottom left to top right 
-     public boolean checkDiagonal2(int row,int col, String color){
+        public boolean checkDiagonal2(int row,int col, String color){
 	try{
-	    int sumRight =0;
-	    int sumLeft=0;
+	    int rightCol=col;
+	    int leftCol=col;
+	    int rowUp=row;
+	    int rowDown=row;
+	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerRight){
-			if (!(Connected[row+1][col-1].equals(color))){
-		    checkerRight=false;
-	    }
-		else{
-		    sumRight++;;
-		}
-	    }
-	    while (checkerLeft){
-			if (!(Connected[row-1][col+1].equals(color))){
+	    while (checkerLeft && leftCol>0 && rowUp<data.length-1){ //&& leftCol>0 &&  rowDown>0){
+		if (!(data[rowUp+1][leftCol-1].equals(color))){
 		    checkerLeft=false;
-	    }
+		}
 		else{
-		    sumLeft++;;
+		    //System.out.println("left;" + sum);
+		    sum++;
+		    leftCol--;
+		    rowUp++;
 		}
 	    }
-	    return (sumRight + sumLeft >= cNumber);
+	    while (checkerRight && rightCol<data[0].length-1 && rowDown>0){ //&& rightCol<data[0].length-1 && rowUp<data.length-1){
+		if (!(data[rowDown-1][rightCol+1].equals(color))){
+		    checkerRight=false;
+		}
+		else{
+		    //System.out.println("right;" + sum);
+		    sum++;
+		    rightCol++;
+		    rowDown--;
+		}
+	    }
+	    return sum >= cNumber;
 	}
+
 	catch(ArrayIndexOutOfBoundsException e){}
 	catch(IndexOutOfBoundsException e){}
 	return false;
-     }
-
+	}
+    }
 }
