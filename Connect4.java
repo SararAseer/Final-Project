@@ -26,9 +26,10 @@ public class Connect4  extends JFrame implements ActionListener{
     private double[] circlex={.05,.17,.29,.41,.53,.65,.77};
     private double[] circley={.9,.8,.7,.6,.5,.4,.3};
     private double circlesize=.05;
-    private String [][] data;
+    private String [][] Connected;
     private int cNumber;
     private JComboBox<String> mode;
+    private int column; //set column = to the column chosen by the player every move
     
     Color Background1 = new Color(242, 229, 255);
     Color framec = new Color(125, 217, 254);
@@ -171,9 +172,10 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	
     }
+    //checks in all directions if the player has won
     public boolean Connected(int col,String color){
 	int r=0;
-	while (r<data.length-1 && (data[r][col].equals("_"))){
+	while (r<Connected.length-1 && (Connected[r][col].equals("_"))){
 	    r++;
 	}
 	//System.out.println("Connected row:"+r);
@@ -184,14 +186,14 @@ public class Connect4  extends JFrame implements ActionListener{
     }
     public boolean checkVertical(int row,int col, String color){
 	try{
-	    //System.out.println(data.length);
+	    //System.out.println(Connected.length);
 	    int rowUp=row;
 	    int rowDown=row;
 	    int sum=1;
 	    boolean checkerUp = true;
 	    boolean checkerDown = true;
-	    while (checkerUp && rowUp<data.length-1){
-		if (!(data[rowUp+1][col].equals(color))){
+	    while (checkerUp && rowUp<Connected.length-1){
+		if (!(Connected[rowUp+1][col].equals(color))){
 		    checkerUp=false;
 		}
 		else{
@@ -201,7 +203,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		}
 	    }
 	    while (checkerDown && rowDown>0){
-		if (!(data[rowDown-1][col].equals(color))){
+		if (!(Connected[rowDown-1][col].equals(color))){
 		    checkerDown=false;
 		}
 		else{
@@ -223,8 +225,8 @@ public class Connect4  extends JFrame implements ActionListener{
 	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerRight && rightCol<data[0].length-1){
-		if (!(data[row][rightCol+1].equals(color))){
+	    while (checkerRight && rightCol<Connected[0].length-1){
+		if (!(Connected[row][rightCol+1].equals(color))){
 		    checkerRight=false;
 		}
 		else{
@@ -233,7 +235,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		}
 	    }
 	    while (checkerLeft && leftCol>0){
-		if (!(data[row][leftCol-1].equals(color))){
+		if (!(Connected[row][leftCol-1].equals(color))){
 		    checkerLeft=false;
 		}
 		else{
@@ -257,8 +259,8 @@ public class Connect4  extends JFrame implements ActionListener{
 	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerRight && rightCol<data[0].length-1 && rowUp<data.length-1){
-		if (!(data[rowUp+1][rightCol+1].equals(color))){
+	    while (checkerRight && rightCol<Connected[0].length-1 && rowUp<Connected.length-1){
+		if (!(Connected[rowUp+1][rightCol+1].equals(color))){
 		    checkerRight=false;
 		}
 		else{
@@ -269,7 +271,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		}
 	    }
 	    while (checkerLeft && leftCol>0 &&  rowDown>0){
-		if (!(data[rowDown-1][leftCol-1].equals(color))){
+		if (!(Connected[rowDown-1][leftCol-1].equals(color))){
 		    checkerLeft=false;
 		}
 		else{
@@ -294,8 +296,8 @@ public class Connect4  extends JFrame implements ActionListener{
 	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerLeft && leftCol>0 && rowUp<data.length-1){ //&& leftCol>0 &&  rowDown>0){
-		if (!(data[rowUp+1][leftCol-1].equals(color))){
+	    while (checkerLeft && leftCol>0 && rowUp<Connected.length-1){ //&& leftCol>0 &&  rowDown>0){
+		if (!(Connected[rowUp+1][leftCol-1].equals(color))){
 		    checkerLeft=false;
 		}
 		else{
@@ -305,8 +307,8 @@ public class Connect4  extends JFrame implements ActionListener{
 		    rowUp++;
 		}
 	    }
-	    while (checkerRight && rightCol<data[0].length-1 && rowDown>0){ //&& rightCol<data[0].length-1 && rowUp<data.length-1){
-		if (!(data[rowDown-1][rightCol+1].equals(color))){
+	    while (checkerRight && rightCol<Connected[0].length-1 && rowDown>0){ //&& rightCol<Connected[0].length-1 && rowUp<Connected.length-1){
+		if (!(Connected[rowDown-1][rightCol+1].equals(color))){
 		    checkerRight=false;
 		}
 		else{
@@ -322,6 +324,22 @@ public class Connect4  extends JFrame implements ActionListener{
 	catch(ArrayIndexOutOfBoundsException e){}
 	catch(IndexOutOfBoundsException e){}
 	return false;
+    }
+    public void doRed(){
+	int r=0;
+	while (r<data.length-1 && (data[r+1][column].equals("_"))){
+	    r++;
+	}
+	data[r][column]="red";
+	return;
+    }
+    public void doYellow(){
+	int r=0;
+	while (r<data.length-1 && (data[r+1][column].equals("_"))){
+	    r++;
+	}
+	data[r][column]="yellow";
+	return;
     }
 }
 
