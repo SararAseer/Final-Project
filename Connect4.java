@@ -13,14 +13,13 @@ import javax.swing.plaf.ColorUIResource;
 
 
 public class Connect4  extends JFrame implements ActionListener{
+    //Turn;Reset;Instructions
     private Container pane;
-    private double intial;
-    private int columnSelected;
-    private JButton Surrender;
-    private boolean dropCircle;
     private JButton Start;
+    private JButton Drop;
     private JButton Go;
     private JButton Reset;
+    private JButton Surrender;
     private JButton Instructions;
     private JTextField Player1;
     private JTextField Player2;
@@ -29,8 +28,10 @@ public class Connect4  extends JFrame implements ActionListener{
     private double[] circlex={.05,.17,.29,.41,.53,.65,.77};
     private double[] circley={.9,.8,.7,.6,.5,.4,.3};
     private double circlesize=.05;
+    private double initial;
     private String [][] Connected;
     private int cNumber;
+    private int columnSelected;
     private JComboBox<String> mode;
     private JComboBox<String> set;
     private String slotOptions[][];
@@ -38,8 +39,8 @@ public class Connect4  extends JFrame implements ActionListener{
     private Color framec;
     private String [] options;
     private boolean modeActive;
-    private double down;
     private boolean paintit;
+    private boolean dropCircle;
 
 
     public void slotOptions(){
@@ -148,9 +149,32 @@ public class Connect4  extends JFrame implements ActionListener{
     }
 
     public void  createTB(){
+	set = new JComboBox<>(slotOptions[0]);
+	set.setBounds(sizex(.4),sizey(.2),sizex(.2),sizey(.025));
+	set.setOpaque(true);
+	set.setForeground(Color.BLACK);
+	set.setBackground(framec);
+	set.setEnabled(true);
+	set.addActionListener(this);
+	set.setVisible(true);
+	pane.add(set);
+	set.repaint();
+     
     }
 
     public void  createGB(){
+	Drop = new JButton("Set");
+	Drop.setBounds(sizex(.7),sizey(.1),sizex(.2),sizey(.025));
+	Drop.setBorderPainted(false);
+	Drop.setOpaque(true);
+	Drop.setForeground(Color.BLACK);
+	Drop.setBackground(framec);
+	Drop.setEnabled(true);
+	Drop.addActionListener(this);
+	Drop.setVisible(true);
+	pane.add(Drop);
+	Drop.repaint();
+	
     }
     
     public Connect4(){
@@ -172,7 +196,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	int cx= (int)(xSize*.6);
 	int cy=(int) (ySize*.9);
 	
-	g.fillOval(size(cx,circlex[0]),size(cy,down),size(cx,.05),size(cy,.05));
 	
 
 
@@ -181,6 +204,7 @@ public class Connect4  extends JFrame implements ActionListener{
     public void paint(Graphics g){
 	if (paintit){
 	    Go.setText("");
+	    Go.setBounds(0,0,0,0);
 	    Go.setBackground(Background1);
 	    g.setColor(framec);
 	    for (int a =0; a<circlex.length; a++){
@@ -196,6 +220,10 @@ public class Connect4  extends JFrame implements ActionListener{
 	     
 
 	}
+	if (!dropCircle){
+	    initial=circley[0];
+	}
+	    
 
     }  
 	
@@ -264,10 +292,10 @@ public class Connect4  extends JFrame implements ActionListener{
 	    //mode.setModel(new DefaultComboBoxModel(list));
 	    createTB();
 	    createGB();
-	    Go.repaint();
 	    paintit=true;
 	    // pane.repaint();
 	    repaint();
+	    Go.setEnabled(false);
 	}
 	
     }
