@@ -225,19 +225,42 @@ public class Connect4  extends JFrame implements ActionListener{
 	    Go.setBounds(0,0,0,0);
 	    Go.setBackground(Background1);
 	    g.setColor(Color.BLACK);
-	    for (int a =0; a<circlex.length; a++){
+	    /*/ for (int a =0; a<circlex.length; a++){
 		for (int i =0; i<circley.length; i++){
-		    g.fillOval(sizex(circlex[a]),sizey(circley[i]),sizex(.025),sizey(.03));
-		    
+		    g.fillOval(sizex(circlex[a]),sizey(circley[i]),sizex(.025),sizey(.03));		    
+		}
+		}/*/
+	    for (int a =Connected.length-1; a>-1; a--){
+		for (int i =0; i<Connected[a].length; i++){
+		    if (Connected[a][i].equals("_")){
+			g.setColor(Color.BLACK);
+			g.fillOval(sizex(circlex[i]),sizey(circley[a]),sizex(.025),sizey(.03));
 
+		    }
+		    if (!(Connected[a][i].equals("_")) && Connected[a][i].equals("Yellow")){
+			g.setColor(Color.YELLOW);
+			g.fillOval(sizex(circlex[i]),sizey(circley[a]),sizex(.025),sizey(.03));
+		    }
+		    else if(!(Connected[a][i].equals("_")) && Connected[a][i].equals("Red")){
+			g.setColor(Color.RED);
+			g.fillOval(sizex(circlex[i]),sizey(circley[a]),sizex(.025),sizey(.03));
+		    }
+		    /*/   if (draw[a][i]==true){
+			System.out.println(a+","+i);
+			g.fillOval(sizex(circlex[i]),sizey(circley[a]),sizex(.025),sizey(.03));
+		    }
+		    /*/
 		}
 	    }
 	}
-    
-
-    
-
 	
+	//	dC(g);
+	
+	//	draw(g);
+
+    }
+
+    public void dC(Graphics g){
 	if (dropCircle){
 	    if (turn){
 		g.setColor(Color.RED);
@@ -248,7 +271,10 @@ public class Connect4  extends JFrame implements ActionListener{
 	    g.fillOval(sizex(circlex[columnSelected-1]),sizey(initial),sizex(.025),sizey(.03));
 		    
 	}
+    }
 	
+    public void draw(Graphics g){
+	g.setColor(Color.BLACK);
 	if (redraw){
 	    for (int a =0; a<Connected.length; a++){
 	    	for (int i =0; i<Connected[a].length; i++){
@@ -268,9 +294,20 @@ public class Connect4  extends JFrame implements ActionListener{
 
 
 	}
-    }
-	
 
+    }
+
+    public static String printer(String[][] array){
+	String gatherer="";
+	for(int i=0;i<array.length;i++){
+	    for(int x=0;x<array[i].length;x++){
+		gatherer+=array[i][x] = " ";
+	    }
+	    gatherer+="\n";
+	}
+	return gatherer;
+    }
+    
     
     public void  Start(){
 	Color myColour = new Color (0, 0, 0,127);
@@ -348,6 +385,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	    paintit=true;
 	    // pane.repaint();
 	    repaint();
+	    editConnect();
 	    Go.setEnabled(false);
 	}
 	if (e.getSource()==set){
@@ -358,70 +396,79 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	
 	if (e.getSource()==Drop){
-	    // dropCircle=true;
-	    // repaint();
-	    // move();
-	    for (int a =0; a<Connected.length; a++){
-		for (int i =0; i<Connected[a].length; i++){
-		    System.out.println(Connected[a][i]);
+	    //dropCircle=true;
+	    //repaint();
+	    //move();
+	    //  System.out.println(printer(Connected));
+	    if( Connected[0][columnSelected-1].equals("_")){
+	    String gatherer="";
+	    for(int i=0;i<Connected.length;i++){
+		for(int x=0;x<Connected[i].length;x++){
+		    gatherer+=Connected[i][x]+" ";
 		}
-		
-
+		gatherer+="\n";
 	    }
+	    System.out.println( gatherer);
 	    setConnect();
-	    if (ypos!=0){
+	    if (ypos<1){
 		turn=!turn;
 	    }
 	    else{
 		turn=!turn;
+		Player1.setText("no");
+		Player1.repaint();	    
 	    }
-	    for (int a =0; a<Connected.length; a++){
-		for (int i =0; i<Connected[a].length; i++){
-		    System.out.println(Connected[a][i]);
+	    String l="";
+	    for(int i=0;i<Connected.length;i++){
+		for(int x=0;x<Connected[i].length;x++){
+		    l+=Connected[i][x]+" ";
 		}
-		
-
+		l+="\n";
 	    }
-	    for (int a =0; a<Connected.length; a++){
-		for (int i =0; i<Connected[a].length; i++){
-		    System.out.println(draw[a][i]);
+	    String m="";
+	    for(int i=0;i<draw.length;i++){
+		for(int x=0;x<draw[i].length;x++){
+		    m+=draw[i][x]+" ";
 		}
-		
-
+		m+="\n";
 	    }
+	    System.out.println(m);
 	    redraw=true;
 	    repaint();
+		}
 	}
-
+	
 	
     }
 
     
-    public boolean setConnect(){
-	
+    public boolean setConnect(){	
 	if (turn){
 	    color="Yellow";
 	}
 	else{
 	    color="Red";
 	}
-	Player2.setText(redraw+"");
-	Player2.repaint();
-	for (int x =0 ; x < Connected[columnSelected-1].length ; x++){
-	    if (Connected[columnSelected-1][circley.length-1-x]==null){
-		Connected[columnSelected-1][circley.length-1-x]=color;
-		draw[columnSelected-1][circley.length-1-x]=true;
-		ypos=circley.length-1-x;
+
+	for (int x = Connected.length-1 ; x > -1 ; x--){
+	    if ((Connected[x][columnSelected-1]).equals("_")){
+		Connected[x][columnSelected-1]=color;
+		draw[x][columnSelected-1]=true;
+		ypos=columnSelected-1;
 		
 		return true;
+		
 	    }
+	    
 	}
-
-	
-
-
 	return false;
     }
+    
+	
+	
+		
+
+
 
     public void move(){
 	Timer timer = new Timer(500, new ActionListener() {
@@ -444,7 +491,15 @@ public class Connect4  extends JFrame implements ActionListener{
 	initial=circley[0];
     }
 
-
+    public void  editConnect(){
+	for (int i= 0; i < Connected.length ; i++){
+	    for (int x= 0; x < Connected[i].length ; x++){
+		Connected[i][x]="_";
+		
+	    }
+	}
+    }
+    
     
     
     //checks if a player has won after every move
