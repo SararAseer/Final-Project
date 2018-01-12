@@ -41,6 +41,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private String [][] Connected;
     private String slotOptions[][];
     private String [] options;
+    private String color;
     private Color Background1;
     private Color framec;
     private boolean modeActive;
@@ -228,7 +229,12 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	if (dropCircle){
-	    g.setColor(framec);
+	    if (turn){
+		g.setColor(Color.YELLOW);
+	    }
+	    else{
+		g.setColor(Color.RED);
+	    }
 	    g.fillOval(sizex(circlex[columnSelected-1]),sizey(initial),sizex(.025),sizey(.03));
 	    draw[count]=new double []{(double)(columnSelected-1),ypos};
 	     
@@ -293,7 +299,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	if(e.getSource() == Go){    
-	    turn=false;
+	    turn=true;
 	    Player1.setEditable(false);
 	    Player2.setEditable(false);
 	    int num=cNumber-4;
@@ -320,12 +326,45 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	
 	if (e.getSource()==Drop){
+	    turn=!turn;
+	    setConnect();
 	    dropCircle=true;
 	    repaint();
 	    move();
+	    dropCircle=false;
 	    
 	
 	}
+    }
+
+    public boolean setConnect(){
+	if (Connected[columnSelected-1][0]==null){
+	    	if (turn){
+		    color="Yellow";
+		}
+		else{
+		    color="Red";
+			}
+		return true;
+	}
+	for (int x =0 ; x < Connected[columnSelected-1].length-1 ; x++){
+	    if (Connected[columnSelected-1][x]==null &&  Connected[columnSelected-1][x+1]!=null){
+		if (turn){
+		    color="Yellow";
+		}
+		else{
+		    color="Red";
+			}
+		Connected[columnSelected-1][x]=color;
+		return true;
+	    }
+		
+	    
+
+	}
+
+
+	return false;
     }
 
     public void move(){
