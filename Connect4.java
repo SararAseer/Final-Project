@@ -21,6 +21,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private JButton Reset;
     private JButton Surrender;
     private JButton Instructions;
+    private JButton check;
     private JTextField Player1;
     private JTextField Player2;
     private JTextField Turn;
@@ -197,7 +198,18 @@ public class Connect4  extends JFrame implements ActionListener{
 	Drop.addActionListener(this);
 	Drop.setVisible(true);
 	pane.add(Drop);
-	Drop.repaint();	
+	Drop.repaint();
+	check = new JButton("Check");
+	check.setBounds(sizex(.7),sizey(.2),sizex(.2),sizey(.025));
+	check.setBorderPainted(false);
+	check.setOpaque(true);
+	check.setForeground(Color.BLACK);
+	check.setBackground(framec);
+	check.setEnabled(true);
+	check.addActionListener(this);
+	check.setVisible(true);
+	pane.add(check);
+	check.repaint();	
     }
     
     public Connect4(){
@@ -432,8 +444,15 @@ public class Connect4  extends JFrame implements ActionListener{
 		redraw=true;
 		repaint();
 	    }
+	   
 	}
-	
+	if(e.getSource()==check){
+	     if ( Connected((int)ypos,columnSelected-1,color)){
+		Player1.setText("Someone won");
+		Player1.repaint();
+	    }
+	}
+
 	
     }
     public void  checkEmpty(){
@@ -444,7 +463,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	    
 	}
-
+       
 
     }
 
