@@ -254,7 +254,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	
-	//	dC(g);
+		dC(g);
 	
 	//	draw(g);
 
@@ -396,49 +396,56 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	
 	if (e.getSource()==Drop){
-	    //dropCircle=true;
-	    //repaint();
-	    //move();
+	    checkEmpty();
+	    dropCircle=true;
+	    repaint();
+	    move();
 	    //  System.out.println(printer(Connected));
 	    if( Connected[0][columnSelected-1].equals("_")){
-	    String gatherer="";
-	    for(int i=0;i<Connected.length;i++){
-		for(int x=0;x<Connected[i].length;x++){
-		    gatherer+=Connected[i][x]+" ";
+		String gatherer="";
+		for(int i=0;i<Connected.length;i++){
+		    for(int x=0;x<Connected[i].length;x++){
+			gatherer+=Connected[i][x]+" ";
+		    }
+		    gatherer+="\n";
 		}
-		gatherer+="\n";
-	    }
-	    System.out.println( gatherer);
-	    setConnect();
-	    if (ypos<1){
+		System.out.println( gatherer);
+		setConnect();
 		turn=!turn;
-	    }
-	    else{
-		turn=!turn;
-		Player1.setText("no");
-		Player1.repaint();	    
-	    }
-	    String l="";
-	    for(int i=0;i<Connected.length;i++){
-		for(int x=0;x<Connected[i].length;x++){
-		    l+=Connected[i][x]+" ";
+	    
+	   
+		String l="";
+		for(int i=0;i<Connected.length;i++){
+		    for(int x=0;x<Connected[i].length;x++){
+			l+=Connected[i][x]+" ";
+		    }
+		    l+="\n";
 		}
-		l+="\n";
-	    }
-	    String m="";
-	    for(int i=0;i<draw.length;i++){
-		for(int x=0;x<draw[i].length;x++){
-		    m+=draw[i][x]+" ";
+		String m="";
+		for(int i=0;i<draw.length;i++){
+		    for(int x=0;x<draw[i].length;x++){
+			m+=draw[i][x]+" ";
+		    }
+		    m+="\n";
 		}
-		m+="\n";
+		System.out.println(m);
+		redraw=true;
+		repaint();
 	    }
-	    System.out.println(m);
-	    redraw=true;
-	    repaint();
-		}
 	}
 	
 	
+    }
+    public void  checkEmpty(){
+	for (int x = Connected.length-1 ; x > -1 ; x--){
+	    if ((Connected[x][columnSelected-1]).equals("_")){
+		ypos=x;
+		break;
+	    }
+	    
+	}
+
+
     }
 
     
@@ -453,9 +460,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	for (int x = Connected.length-1 ; x > -1 ; x--){
 	    if ((Connected[x][columnSelected-1]).equals("_")){
 		Connected[x][columnSelected-1]=color;
-		draw[x][columnSelected-1]=true;
-		ypos=columnSelected-1;
-		
+		draw[x][columnSelected-1]=true;		
 		return true;
 		
 	    }
@@ -471,6 +476,7 @@ public class Connect4  extends JFrame implements ActionListener{
 
 
     public void move(){
+	System.out.println(ypos);
 	Timer timer = new Timer(500, new ActionListener() {
 		
 		public void actionPerformed(ActionEvent e) {
@@ -478,7 +484,7 @@ public class Connect4  extends JFrame implements ActionListener{
 			
 			((Timer)e.getSource()).stop();
 		    }
-		    if (initial <(circley[((int)ypos)])){
+		    if (initial <(circley[((int)(ypos))])){
 			initial+=yInc;
 		    } else {
 			((Timer)e.getSource()).stop();
