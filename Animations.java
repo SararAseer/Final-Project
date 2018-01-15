@@ -13,10 +13,47 @@ import javax.swing.plaf.ColorUIResource;
 import java.util.concurrent.TimeUnit;
 
 
-public class Animations  extends JFrame {
+public class Animations extends JFrame implements ActionListener{
+    private double[] circlex={.05,.15,.25,.35,.45,.55,.65,.75,.85,.95};
+    private double initial;
     private Container pane;
-    private Color Background1;
+    private Color Background1 = new Color(242, 229, 255);
+    private Color framec = new Color(22, 29, 255);
+    private double xinc;
+    private JButton Start;
+    private boolean yes;
+    
+    public static void main(String[] args) {
+	Animations Test = new Animations();
+	Test.setVisible(true);
+	
+	
+    }
+    
+    public Animations(){
+	pane = this.getContentPane();
+	Toolkit tk = Toolkit.getDefaultToolkit();
+	this.setSize(sizex(.99),sizey(.99));
+	xinc=.005;
+	this.setLayout(null);
+	this.setTitle("Byte Sized");
+	this.setLocationRelativeTo(null);
+	this.setBackground(Background1);
+	pane.setBackground(Background1);
+	Start = new JButton("Start");
+	Start.setBounds(sizex(.4),sizey(.4),sizex(.1),sizey(.1));
+	Start.setBorderPainted(false);
+	Start.setOpaque(true);
+	Start.setContentAreaFilled(true);
+	Start.setForeground(Color.BLACK);
+	Start.setBackground(framec);
+	Start.setEnabled(true);
+	Start.addActionListener(this);
+	pane.add(Start);
+	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
 
+    
     public int sizex(double newx){
 	Toolkit tk = Toolkit.getDefaultToolkit();  
 	int x = ((int) tk.getScreenSize().getWidth());  
@@ -24,29 +61,52 @@ public class Animations  extends JFrame {
 
     }
 
-     public int sizey(double newy){
-	 Toolkit tk = Toolkit.getDefaultToolkit();  
+    public int sizey(double newy){
+	Toolkit tk = Toolkit.getDefaultToolkit();  
 	int y = ((int) tk.getScreenSize().getHeight());
 	return (int)(y*newy);
 
     }
     
-    public Animations(){
-	Background1 =new Color(242, 229, 255);
-	pane = this.getContentPane();
-	Toolkit tk = Toolkit.getDefaultToolkit();
-	this.setSize(sizex(.99),sizey(.99));	
-	this.setLayout(null);
-	this.setTitle("Connect-4");
-	this.setLocationRelativeTo(null);
-	this.setBackground(Background1);
-	pane.setBackground(Background1);
-	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-
-
+    public void paint(Graphics g){
+	g.setColor(framec);
+	g.fillRect(0,0,sizex(1),sizey(.2));	
+	if (yes){
+        g.setColor(Color.BLACK);
+        for (int i = 0; i < circlex.length; i++) {
+	    g.fillOval(sizex(circlex[i]), sizey(.1), sizex(.05), sizex(.05) );
+        }
+	}
     }
 
+    public void move(){
+	yes=true;
+	Timer timer = new Timer(100, new ActionListener() {
+		
+		public void actionPerformed(ActionEvent e) {
+		    for (int i = 0; i < circlex.length; i++) {
+			if (circlex[i] + xinc < .99) {
+			    circlex[i] += xinc;
+			} else {
+			    circlex[i] = 0;
+			}
+		    }
 
+		    repaint();
+		}
+	    });
+        timer.start();
+    }
+
+        public void actionPerformed(ActionEvent e){
+	    if(e.getSource()==Start){
+		Start.setVisible(false);
+		Start.repaint();
+		move();
+		repaint();
+		System.out.println("Start");
+
+	    }
+	}
 
 }

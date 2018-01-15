@@ -106,6 +106,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	    });
 	Test.setVisible(true);
     }
+    
     public int sizex(double newx){
 	Toolkit tk = Toolkit.getDefaultToolkit();  
 	int x = ((int) tk.getScreenSize().getWidth());  
@@ -371,8 +372,7 @@ public class Connect4  extends JFrame implements ActionListener{
     }
     
     
-    public void  Start(){
-	
+    public void  Start(){	
 	Color myColour = new Color (0, 0, 0,127);
 	pane = this.getContentPane();
 	Toolkit tk = Toolkit.getDefaultToolkit();
