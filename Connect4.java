@@ -44,6 +44,8 @@ public class Connect4  extends JFrame implements ActionListener{
     private String [][] data;
     private String slotOptions[][];
     private String [] options;
+    private String p1;
+    private String p2;
     private String color;
     private Color Background1;
     private Color framec;
@@ -51,7 +53,9 @@ public class Connect4  extends JFrame implements ActionListener{
     private boolean turn;
     private boolean redraw;
     private boolean paintit;
+    private boolean won2;
     private boolean recentz;
+    private boolean won;
     private boolean canDo;
     private boolean dropCircle;
     private boolean[][] draw;
@@ -199,6 +203,16 @@ public class Connect4  extends JFrame implements ActionListener{
 	Title.setVisible(true);
 	pane.add(Title);
 	Title.repaint();
+	Turn= new JTextField("Turn");
+	Turn.setBounds(sizex(.7),sizey(.2),sizex(.2),sizey(.025));
+	Turn.setOpaque(true);
+	Turn.setHorizontalAlignment(SwingConstants.CENTER);
+	Turn.setForeground(Color.BLACK);
+	Turn.setBackground(framec);
+	Turn.setEditable(false);
+	Turn.setVisible(true);
+	pane.add(Turn);
+	Turn.repaint();
     }
 
     public void  createGB(){
@@ -213,17 +227,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	Drop.setVisible(true);
 	pane.add(Drop);
 	Drop.repaint();
-	check = new JButton("Check");
-	check.setBounds(sizex(.7),sizey(.2),sizex(.2),sizey(.025));
-	check.setBorderPainted(false);
-	check.setOpaque(true);
-	check.setForeground(Color.BLACK);
-	check.setBackground(framec);
-	check.setEnabled(true);
-	check.addActionListener(this);
-	check.setVisible(true);
-	pane.add(check);
-	check.repaint();	
     }
     
     public Connect4(){
@@ -246,6 +249,14 @@ public class Connect4  extends JFrame implements ActionListener{
     }
     
     public void paint(Graphics g){
+	pane = this.getContentPane();
+	if(won){
+	    this.setVisible(false);
+	    Animations x = new Animations();
+	    x.setVisible(true);
+	    this.dispose();
+	}
+	if (!won){
 	if (recentz){
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
@@ -306,6 +317,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	
 	
 	//	draw(g);
+	}
 
     }
 
@@ -360,26 +372,29 @@ public class Connect4  extends JFrame implements ActionListener{
     
     
     public void  Start(){
+	
 	Color myColour = new Color (0, 0, 0,127);
 	pane = this.getContentPane();
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	this.setSize(sizex(.99),sizey(.99));	
 	this.setLayout(null);
-	this.setTitle("Connect-4");
+	this.setTitle("Byte Sized");
 	this.setLocationRelativeTo(null);
 	this.setBackground(Background1);
 	pane.setBackground(Background1);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	Start = new JButton("Start");
-	Start.setBounds(sizex(.4),sizey(.4),sizex(.1),sizey(.1));
-	Start.setBorderPainted(false);
-	Start.setOpaque(true);
-	Start.setContentAreaFilled(true);
-	Start.setForeground(Color.BLACK);
-	Start.setBackground(framec);
-	Start.setEnabled(true);
-	Start.addActionListener(this);
-	pane.add(Start);
+	if(!won2){
+	    Start = new JButton("Start");
+	    Start.setBounds(sizex(.4),sizey(.4),sizex(.1),sizey(.1));
+	    Start.setBorderPainted(false);
+	    Start.setOpaque(true);
+	    Start.setContentAreaFilled(true);
+	    Start.setForeground(Color.BLACK);
+	    Start.setBackground(framec);
+	    Start.setEnabled(true);
+	    Start.addActionListener(this);
+	    pane.add(Start);
+	}
     }
 
   
@@ -417,7 +432,9 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	if(e.getSource() == Go){    
-	    turn=true;
+	    turn=false;
+	    p1=Player1.getText();
+	    p2=Player2.getText();
 	    Player1.setEditable(false);
 	    Player2.setEditable(false);
 	    int num=cNumber-4;	   
@@ -442,6 +459,15 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Drop.setForeground(Color.GRAY);
 		    Drop.repaint();
 		    turn=!turn;
+		    if (turn){
+			Turn.setText(p1+"'s "+"Turn");
+			Turn.setBackground(Color.YELLOW);
+		    }
+		    else{
+			Turn.setText(p2+"'s "+ "Turn");
+			Turn.setBackground(Color.RED);
+		    }
+		    Turn.repaint();
 		    initial=circley[0]-yInc;
 		    System.out.println(initial);
 		    checkEmpty();
@@ -470,13 +496,15 @@ public class Connect4  extends JFrame implements ActionListener{
 	System.out.println("Checking");
 	if ( Connected((int)ypos,columnSelected-1,color)){
 	    System.out.println("someone did win");
-	    Player1.setText("Someone won");
-	    Player1.repaint();
+	    Drop .setEnabled(false);
+	    won=true;
+	    repaint();
+
 	}
 	System.out.println("Checked");
     }
 
-
+ 
 
     public void  checkEmpty(){
 	for (int x = Connected.length-1 ; x > -1 ; x--){
@@ -488,6 +516,11 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
        
 
+    }
+
+    public void setWin(){
+	won2=true;
+	
     }
 
     
