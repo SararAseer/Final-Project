@@ -35,11 +35,13 @@ public class Connect4  extends JFrame implements ActionListener{
     private double xInc;
     private int cNumber;
     private int count;
+    private int chosen;
     private int columnSelected;
     private int column;
     private JComboBox<String> mode;
     private JComboBox<String> set;
     private String [][] Connected;
+    private String [][] data;
     private String slotOptions[][];
     private String [] options;
     private String color;
@@ -77,7 +79,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	initial=0;		
 	xInc=.3;
 	Connected=new String [6][7];
-	columnSelected=1;
+	chosen=1;
 	cNumber=4;
 	paintit=false;
 	slotOptions();
@@ -428,14 +430,14 @@ public class Connect4  extends JFrame implements ActionListener{
 	    Go.setEnabled(false);
 	}
 	if (e.getSource()==set){
-	    String n=new String ((String)set.getSelectedItem());
-	    columnSelected=Integer.parseInt(n.substring(n.length()-1));
-	    initial=circley[circley.length-1];
-	   
+	    insertion();
+	    
+	    
 	}
 
 	if (e.getSource()==Drop){
 	    if (canDo){
+		columnSelected=chosen;
 		if( Connected[0][columnSelected-1].equals("_")){
 		    Drop.setForeground(Color.GRAY);
 		    Drop.repaint();
@@ -450,16 +452,32 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	if(e.getSource()==check){
-	    System.out.println("Checking");
-	    if ( Connected((int)ypos,columnSelected-1,color)){
-		System.out.println("someone did win");
-		Player1.setText("Someone won");
-		Player1.repaint();
-	    }
-	    System.out.println("Checked");
+	    win();
 	}
 	
     }
+
+    public void insertion(){
+	String n=new String ((String)set.getSelectedItem());
+	chosen=Integer.parseInt(n.substring(n.length()-1));
+
+
+    }
+
+    public void win(){
+	System.out.println(printer(Connected));
+	data=Connected;
+	System.out.println("Checking");
+	if ( Connected((int)ypos,columnSelected-1,color)){
+	    System.out.println("someone did win");
+	    Player1.setText("Someone won");
+	    Player1.repaint();
+	}
+	System.out.println("Checked");
+    }
+
+
+
     public void  checkEmpty(){
 	for (int x = Connected.length-1 ; x > -1 ; x--){
 	    if ((Connected[x][columnSelected-1]).equals("_")){
@@ -513,8 +531,10 @@ public class Connect4  extends JFrame implements ActionListener{
 		    } else {
 			((Timer)e.getSource()).stop();
 			setConnect();
-			
+			win();
 			canDo=true;
+		
+			win();
 			
 			
 		    }
@@ -539,7 +559,6 @@ public class Connect4  extends JFrame implements ActionListener{
     
     
     
-    //checks if a player has won after every move
     public boolean Connected(int row,int col,String color){
 	return (checkVertical(row,col,color)   ||
 	        checkHorizontal(row,col,color) ||
@@ -689,7 +708,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	catch(ArrayIndexOutOfBoundsException e){}
 	catch(IndexOutOfBoundsException e){}
 	return false;
-     }
-
+    }
 }
 
