@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Animations extends JFrame implements ActionListener{
-    private double[] circlex={.05,.15,.25,.35,.45,.55,.65,.75,.85,.95};
+    private double[] circlex={.0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1};
     private double initial;
     private Container pane;
     private Color Background1 = new Color(242, 229, 255);
@@ -22,6 +22,8 @@ public class Animations extends JFrame implements ActionListener{
     private double xinc;
     private JButton Start;
     private boolean yes;
+    private Image db;
+    private Graphics dbg;
     
     public static void main(String[] args) {
 	Animations Test = new Animations();
@@ -69,19 +71,26 @@ public class Animations extends JFrame implements ActionListener{
     }
     
     public void paint(Graphics g){
+	db=createImage(getWidth(),getHeight());
+	dbg=db.getGraphics();
+	paintComponent(dbg);
+	g.drawImage(db,0,0,this);
+
+    }
+    
+    public void paintComponent(Graphics g){
 	g.setColor(framec);
-	g.fillRect(0,0,sizex(1),sizey(.2));	
-	if (yes){
+	g.fillRect(sizex(0),sizey(.05),sizex(1),sizey(.2));
         g.setColor(Color.BLACK);
         for (int i = 0; i < circlex.length; i++) {
 	    g.fillOval(sizex(circlex[i]), sizey(.1), sizex(.05), sizex(.05) );
         }
-	}
+
     }
 
     public void move(){
 	yes=true;
-	Timer timer = new Timer(100, new ActionListener() {
+	Timer timer = new Timer(1, new ActionListener() {
 		
 		public void actionPerformed(ActionEvent e) {
 		    for (int i = 0; i < circlex.length; i++) {
