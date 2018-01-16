@@ -16,6 +16,8 @@ import java.util.concurrent.TimeUnit;
 public class Connect4  extends JFrame implements ActionListener{
     //Turn;Reset;Instructions
     private Container pane;
+    private Image db;
+    private Graphics dbg;
     private JButton Start;
     private JButton Drop;
     private JButton Go;
@@ -249,11 +251,21 @@ public class Connect4  extends JFrame implements ActionListener{
 	int cy=(int) (ySize*.9);
     }
     
+  
+    
     public void paint(Graphics g){
 	pane = this.getContentPane();
 	if(won){
 	    this.setVisible(false);
 	    Animations x = new Animations();
+	    if (turn){
+		x.setText(p1);
+	    }
+	    else{
+		x.setText(p2);
+	    }
+	    x.Board(Connected);
+	    x.move();
 	    x.setVisible(true);
 	    this.dispose();
 	}
@@ -565,6 +577,15 @@ public class Connect4  extends JFrame implements ActionListener{
 			((Timer)e.getSource()).stop();
 			setConnect();
 			win();
+			if (turn){
+			    Turn.setText(p2+"'s "+"Turn");
+			    Turn.setBackground(Color.RED);
+			}
+			else{
+			    Turn.setText(p1+"'s "+ "Turn");
+			    Turn.setBackground(Color.YELLOW);
+			}
+			Turn.repaint();
 			canDo=true;
 		
 			win();

@@ -14,16 +14,25 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Animations extends JFrame implements ActionListener{
-    private double[] circlex={.0,.1,.2,.3,.4,.5,.6,.7,.8,.9,1};
+    private double[] circlex={.0,.2,.4,.6,.8,1};
+    private double[] circlex2={.1,.3,.5,.7,.9};
+    private double[] circlex3={.39,.42,.45,.48,.51,.54,.57};
+    private double[] circley={.35,.4,.45,.5,.55,.6};
     private double initial;
     private Container pane;
     private Color Background1 = new Color(242, 229, 255);
-    private Color framec = new Color(22, 29, 255);
+    private Color framec = new Color(42, 44, 111);
+    private Color framec2 = new Color(107, 0, 254);
     private double xinc;
     private JButton Start;
+    private String[][] Connected;
+    private String Player;
     private boolean yes;
+    private boolean color;
     private Image db;
     private Graphics dbg;
+    private JTextField name;
+
     
     public static void main(String[] args) {
 	Animations Test = new Animations();
@@ -42,6 +51,7 @@ public class Animations extends JFrame implements ActionListener{
 	this.setLocationRelativeTo(null);
 	this.setBackground(Background1);
 	pane.setBackground(Background1);
+	/*/
 	Start = new JButton("Start");
 	Start.setBounds(sizex(.4),sizey(.4),sizex(.1),sizey(.1));
 	Start.setBorderPainted(false);
@@ -52,9 +62,16 @@ public class Animations extends JFrame implements ActionListener{
 	Start.setEnabled(true);
 	Start.addActionListener(this);
 	pane.add(Start);
+	Connected=new String[6][7];
+	for (int x = 0 ; x < Connected.length ; x++){
+	    for (int q = 0 ; q < Connected[x].length ; q++){
+		Connected[x][q]=("_");
+	    }
+	    }
+	    /*/
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
+    
     
     public int sizex(double newx){
 	Toolkit tk = Toolkit.getDefaultToolkit();  
@@ -76,19 +93,66 @@ public class Animations extends JFrame implements ActionListener{
 	paintComponent(dbg);
 	g.drawImage(db,0,0,this);
 
+
+    }
+
+    public void setText(String  g){
+	Player=g;
+	
+    }
+
+     public void Board(String [][]  x){
+	Connected=x;
+	
     }
     
     public void paintComponent(Graphics g){
 	g.setColor(framec);
-	g.fillRect(sizex(0),sizey(.05),sizex(1),sizey(.2));
-        g.setColor(Color.BLACK);
+	g.fillRect(sizex(0),sizey(.18),sizex(1),sizey(.12));
+	g.fillRect(sizex(0),sizey(.68),sizex(1),sizey(.12));
+	String m=Player+" HAS WON!";
+	Font font= new Font("TimesRoman", Font.PLAIN, 50);
+	FontMetrics fm = g.getFontMetrics ( font );
+	int sw = fm.stringWidth ( m );
+	g.setFont ( font );
+	g.setColor ( Color.BLACK );
+	g.drawString ( m , ( this.getWidth() + sw ) / 2 - sw , sizey(.12));
+	String a= "Byte Sized";
+	sw = fm.stringWidth ( a);
+	g.drawString ( a , ( this.getWidth() + sw ) / 2 - sw , sizey(.92));		
         for (int i = 0; i < circlex.length; i++) {
-	    g.fillOval(sizex(circlex[i]), sizey(.1), sizex(.05), sizex(.05) );
+	    g.setColor(Color.YELLOW);
+	    g.fillOval(sizex(circlex[i]), sizey(.2), sizex(.04), sizex(.04) );
+	    g.fillOval(sizex(circlex[i]), sizey(.7), sizex(.04), sizex(.04) );
         }
+	 for (int i = 0; i < circlex2.length; i++) {
+	     g.setColor(Color.RED);
+	    g.fillOval(sizex(circlex2[i]), sizey(.2), sizex(.04), sizex(.04) );
+	    g.fillOval(sizex(circlex2[i]), sizey(.7), sizex(.04), sizex(.04) );
+	 }
+	 for (int s =Connected.length-1; s>-1; s--){
+	     for (int i =0; i<Connected[s].length; i++){
+		 if (Connected[s][i].equals("_")){
+		     g.setColor(Color.BLACK);
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]),sizex(.025),sizey(.03));
+
+		 }
+		 if (!(Connected[s][i].equals("_")) && Connected[s][i].equals("Yellow")){
+		     g.setColor(Color.YELLOW);
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]),sizex(.025),sizey(.03));
+		 }
+		 else if(!(Connected[s][i].equals("_")) && Connected[s][i].equals("Red")){
+		     g.setColor(Color.RED);
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]),sizex(.025),sizey(.03));
+		 }				    
+	     }
+
+	 }
 
     }
-
+    
     public void move(){
+
 	yes=true;
 	Timer timer = new Timer(1, new ActionListener() {
 		
@@ -100,19 +164,23 @@ public class Animations extends JFrame implements ActionListener{
 			    circlex[i] = 0;
 			}
 		    }
-
+		    for (int i = 0; i < circlex2.length; i++) {
+			if (circlex2[i] + xinc < .99) {
+			    circlex2[i] += xinc;
+			} else {
+			    circlex2[i] = 0;
+			}
+		    }
 		    repaint();
 		}
+		
 	    });
         timer.start();
     }
 
         public void actionPerformed(ActionEvent e){
 	    if(e.getSource()==Start){
-		Start.setVisible(false);
-		Start.repaint();
 		move();
-		repaint();
 		System.out.println("Start");
 
 	    }
