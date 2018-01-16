@@ -54,7 +54,6 @@ public class Connect4  extends JFrame implements ActionListener{
     private boolean modeActive;
     private boolean turn;
     private boolean redraw;
-    private boolean Animation;
     private boolean paintit;
     private boolean won2;
     private boolean recentz;
@@ -81,13 +80,13 @@ public class Connect4  extends JFrame implements ActionListener{
   
     public void setVariables(){
 	canDo=true;
-	Animation=true;
 	draw=new boolean [6][7];
 	yInc=.05;
 	initial=0;		
 	xInc=.3;
 	Connected=new String [6][7];
 	chosen=1;
+	columnSelected=chosen;
 	cNumber=4;
 	paintit=false;
 	slotOptions();
@@ -492,15 +491,15 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	if (e.getSource()==set){
 	    insertion();
-	    
+	    columnSelected=chosen;
 	    
 	}
 
 	if (e.getSource()==Drop){
-	   
-	    if (canDo){
-		columnSelected=chosen;
-		if( Connected[0][columnSelected-1].equals("_")){
+	    if( Connected[0][columnSelected-1].equals("_")){
+		System.out.println("hello");
+		if (canDo){
+		    System.out.println("hello");
 		    Drop.setForeground(Color.GRAY);
 		    Drop.repaint();
 		    turn=!turn;
@@ -601,7 +600,9 @@ public class Connect4  extends JFrame implements ActionListener{
 	Timer timer = new Timer(500, new ActionListener() {
 		
 		public void actionPerformed(ActionEvent e) {
-	
+		    if (ypos<1.0){
+			((Timer)e.getSource()).stop();
+		    }
 		    if (initial <(circley[((int)(ypos))])){
 			initial+=yInc;
 		    } else {
@@ -618,6 +619,7 @@ public class Connect4  extends JFrame implements ActionListener{
 			}
 			Turn.repaint();
 			canDo=true;
+		
 			win();
 			
 			
