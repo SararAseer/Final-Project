@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class Connect4  extends JFrame implements ActionListener{
     //Turn;Reset;Instructions
     private Container pane;
-    private Image db;
     private Graphics dbg;
     private JButton Start;
     private JButton Drop;
