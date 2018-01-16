@@ -29,6 +29,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private JTextField Player2;
     private JTextField Turn;
     private JTextField Title;
+    private JLabel Company;
     private double[] circlex={.39,.42,.45,.48,.51,.54,.57};
     private double[] circley={.55,.6,.65,.7,.75,.8};
     private double ypos;
@@ -151,6 +152,27 @@ public class Connect4  extends JFrame implements ActionListener{
 	Go.addActionListener(this);
 	Go.setVisible(true);
 	pane.add(Go);
+	Company= new JLabel("Byte Sized", SwingConstants.CENTER);
+	Company.setHorizontalAlignment(SwingConstants.CENTER);
+	Font font= new Font("TimesRoman", Font.PLAIN, 100);
+	Company.setFont(font);
+	Company.setBounds(sizex(0),sizey(.325),sizex(1),sizey(.2));
+	Company.setOpaque(true);
+	Company.setForeground(Color.WHITE);
+	Company.setBackground(Color.BLACK);
+	pane.add(Company);
+	Company.repaint();
+	Title= new JTextField("Connect-N", SwingConstants.CENTER);
+	Title.setHorizontalAlignment(SwingConstants.CENTER);
+	Title.setBounds(sizex(0),sizey(.3),sizex(1),sizey(.025));
+	Title.setOpaque(true);
+	Title.setForeground(Color.BLACK);
+	Title.setBackground(framec);
+	Title.setEnabled(false);
+	Title.setVisible(true);
+	pane.add(Title);
+	Title.repaint();
+
 	Player1= new JTextField("Insert Name of Player 1");
 	Player1.setBounds(sizex(.1),sizey(.1),sizex(.2),sizey(.025));
 	Player1.setOpaque(true);
@@ -196,16 +218,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	set.setVisible(true);
 	pane.add(set);
 	set.repaint();
-	Title= new JTextField("Connect-N", SwingConstants.CENTER);
-	Title.setHorizontalAlignment(SwingConstants.CENTER);
-	Title.setBounds(sizex(0),sizey(.3),sizex(1),sizey(.025));
-	Title.setOpaque(true);
-	Title.setForeground(Color.BLACK);
-	Title.setBackground(framec);
-	Title.setEnabled(false);
-	Title.setVisible(true);
-	pane.add(Title);
-	Title.repaint();
 	Turn= new JTextField("Turn");
 	Turn.setBounds(sizex(.7),sizey(.2),sizex(.2),sizey(.025));
 	Turn.setOpaque(true);
@@ -216,6 +228,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	Turn.setVisible(true);
 	pane.add(Turn);
 	Turn.repaint();
+
     }
 
     public void  createGB(){
@@ -256,6 +269,7 @@ public class Connect4  extends JFrame implements ActionListener{
     public void paint(Graphics g){
 	pane = this.getContentPane();
 	if(won){
+	    
 	    this.setVisible(false);
 	    Animations x = new Animations();
 	    if (turn){
@@ -283,16 +297,28 @@ public class Connect4  extends JFrame implements ActionListener{
 	    recentz=false;
 
 	}
+
+	
 	if (paintit){
+	   
 	    Go.setText("");
 	    Go.setBounds(0,0,0,0);
 	    Go.setBackground(Background1);
-	    
+	    Go.repaint();
+	    Company.setText("");
+	    Company.setBounds(0,0,0,0);
+	    Company.setBackground(Background1);
+	    Company.repaint();
+	   
+	  
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
 		    if (Connected[a][i].equals("_")){
+			
 			g.setColor(Color.BLACK);
 			g.fillOval(sizex(circlex[i]),sizey(circley[a]),sizex(.025),sizey(.03));
+		
+
 
 		    }
 		    if (!(Connected[a][i].equals("_")) && Connected[a][i].equals("Yellow")){
@@ -310,6 +336,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		else{
 		    g.setColor(Color.RED);
 		}
+	
 	    }
 	
 	    if (dropCircle){
@@ -416,8 +443,11 @@ public class Connect4  extends JFrame implements ActionListener{
 	String s = e.getActionCommand();
 	if(e.getSource() == Start){
 	    Start.setText("");
+	    Start.setBounds(0,0,0,0);	    
 	    Start.setBackground(Background1);
+	    Start.repaint();	  
 	    IntroScreen();
+	    
 	    Start.setEnabled(false);
 	}
 	if(e.getSource() == mode){
@@ -445,6 +475,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	if(e.getSource() == Go){    
 	    turn=false;
+	   
 	    p1=Player1.getText();
 	    p2=Player2.getText();
 	    Player1.setEditable(false);
