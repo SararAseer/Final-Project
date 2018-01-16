@@ -16,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class Connect4  extends JFrame implements ActionListener{
     //Turn;Reset;Instructions
     private Container pane;
-    private Image db;
     private Graphics dbg;
     private JButton Start;
     private JButton Drop;
@@ -55,6 +54,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private boolean modeActive;
     private boolean turn;
     private boolean redraw;
+    private boolean Animation;
     private boolean paintit;
     private boolean won2;
     private boolean recentz;
@@ -81,6 +81,7 @@ public class Connect4  extends JFrame implements ActionListener{
   
     public void setVariables(){
 	canDo=true;
+	Animation=true;
 	draw=new boolean [6][7];
 	yInc=.05;
 	initial=0;		
@@ -496,6 +497,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 
 	if (e.getSource()==Drop){
+	   
 	    if (canDo){
 		columnSelected=chosen;
 		if( Connected[0][columnSelected-1].equals("_")){
@@ -599,9 +601,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	Timer timer = new Timer(500, new ActionListener() {
 		
 		public void actionPerformed(ActionEvent e) {
-		    if (ypos<1.0){
-			((Timer)e.getSource()).stop();
-		    }
+	
 		    if (initial <(circley[((int)(ypos))])){
 			initial+=yInc;
 		    } else {
@@ -618,7 +618,6 @@ public class Connect4  extends JFrame implements ActionListener{
 			}
 			Turn.repaint();
 			canDo=true;
-		
 			win();
 			
 			
@@ -795,4 +794,3 @@ public class Connect4  extends JFrame implements ActionListener{
 	return false;
     }
 }
-
