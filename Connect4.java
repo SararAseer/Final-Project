@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Connect4  extends JFrame implements ActionListener{
-    //Turn;Reset;Instructions
+    //Instructions
     private Container pane;
     private Graphics dbg;
     private JButton Start;
@@ -29,8 +29,8 @@ public class Connect4  extends JFrame implements ActionListener{
     private JTextField Turn;
     private JTextField Title;
     private JLabel Company;
-    private double[] circlex={.39,.42,.45,.48,.51,.54,.57};
-    private double[] circley={.55,.6,.65,.7,.75,.8};
+    private double[] circlex={.39,.42,.45,.48,.51,.54,.57,.36,.33};
+    private double[] circley={.55,.6,.65,.7,.75,.8,.5,.45,.4};
     private double ypos;
     private double initial;
     private double yInc;
@@ -280,6 +280,7 @@ public class Connect4  extends JFrame implements ActionListener{
   
     
     public void paint(Graphics g){
+	
 	if (reset){
  	    System.out.println(printer(Connected));
 	    for (int a =Connected.length-1; a>-1; a--){
@@ -494,6 +495,7 @@ public class Connect4  extends JFrame implements ActionListener{
 
 	if(e.getSource() == Reset){
 	    if(canDo){
+		turn=true;
 		paintit=false;
 		editConnect();
 		System.out.println("hello");
@@ -528,8 +530,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 	}
 	if(e.getSource() == Go){    
-	    turn=false;
-	   
+	    turn=false;	   
 	    p1=Player1.getText();
 	    p2=Player2.getText();
 	    Player1.setEditable(false);
