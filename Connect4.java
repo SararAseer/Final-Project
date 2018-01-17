@@ -54,6 +54,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private boolean modeActive;
     private boolean turn;
     private boolean redraw;
+    private boolean reset;
     private boolean Animation;
     private boolean paintit;
     private boolean won2;
@@ -244,6 +245,17 @@ public class Connect4  extends JFrame implements ActionListener{
 	Drop.setVisible(true);
 	pane.add(Drop);
 	Drop.repaint();
+	Reset = new JButton("Reset");
+	Reset.setBounds(sizex(.4),sizey(.15),sizex(.2),sizey(.025));
+	Reset.setBorderPainted(false);
+	Reset.setOpaque(true);
+	Reset.setForeground(Color.BLACK);
+	Reset.setBackground(framec);
+	Reset.setEnabled(true);
+	Reset.addActionListener(this);
+	Reset.setVisible(true);
+	pane.add(Reset);
+	Reset.repaint();
     }
     
     public Connect4(){
@@ -268,6 +280,31 @@ public class Connect4  extends JFrame implements ActionListener{
   
     
     public void paint(Graphics g){
+	if (reset){
+ 	    System.out.println(printer(Connected));
+	    for (int a =Connected.length-1; a>-1; a--){
+		for (int i =0; i<Connected[a].length; i++){
+		    if (Connected[a][i].equals("_")){
+			
+			g.setColor(Color.BLACK);
+			g.fillOval(sizex(circlex[i]),sizey(circley[a]),sizex(.025),sizey(.03));
+		
+
+
+		    }
+		    if (!(Connected[a][i].equals("_")) && Connected[a][i].equals("Yellow")){
+			g.setColor(Color.YELLOW);
+			g.fillOval(sizex(circlex[i]),sizey(circley[a]),sizex(.025),sizey(.03));
+		    }
+		    else if(!(Connected[a][i].equals("_")) && Connected[a][i].equals("Red")){
+			g.setColor(Color.RED);
+			g.fillOval(sizex(circlex[i]),sizey(circley[a]),sizex(.025),sizey(.03));
+		    }				    
+		}
+
+	    }
+	    reset=false;
+	}
 	pane = this.getContentPane();
 	if(won){
 	    
@@ -295,8 +332,9 @@ public class Connect4  extends JFrame implements ActionListener{
 		    }
 		}
 	    }
+	    paintit=true;
 	    recentz=false;
-
+	    
 	}
 
 	
@@ -339,7 +377,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		}
 	
 	    }
-	
+
 	    if (dropCircle){
 		if (turn){
 		    g.setColor(Color.YELLOW);
@@ -351,6 +389,8 @@ public class Connect4  extends JFrame implements ActionListener{
 		if(initial>(circley[((int)(ypos))])||ypos==0){
 		    Drop.setForeground(Color.BLACK);
 		    Drop.repaint();
+		    Reset.setForeground(Color.BLACK);
+		    Reset.repaint();
 		}
 	
 	    }
@@ -451,6 +491,19 @@ public class Connect4  extends JFrame implements ActionListener{
 	    
 	    Start.setEnabled(false);
 	}
+
+	if(e.getSource() == Reset){
+	    if(canDo){
+		paintit=false;
+		editConnect();
+		System.out.println("hello");
+		System.out.println(printer(Connected));
+		reset=true;
+		repaint();
+	    }
+	 
+	}
+		
 	if(e.getSource() == mode){
 	    if (((String)mode.getSelectedItem()).equals("Connect-4")){
 		cNumber=4;
@@ -497,12 +550,14 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 
 	if (e.getSource()==Drop){
-	   
+	    paintit=true;
 	    if (canDo){
 		columnSelected=chosen;
 		if( Connected[0][columnSelected-1].equals("_")){
 		    Drop.setForeground(Color.GRAY);
 		    Drop.repaint();
+		    Reset.setForeground(Color.GRAY);
+		    Reset.repaint();
 		    turn=!turn;
 		    if (turn){
 			Turn.setText(p1+"'s "+"Turn");
