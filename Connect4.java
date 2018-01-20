@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Connect4  extends JFrame implements ActionListener{
     private Container pane;
-    private Image db;
     private Graphics dbg;
     private JButton Start;
     private JButton Drop;
@@ -30,12 +29,9 @@ public class Connect4  extends JFrame implements ActionListener{
     private JTextField Title;
     private JLabel Company;
     private double[] circlex={.39,.42,.45,.48,.51,.54,.57};
-    //   private double[] circley={.55,.6,.65,.7,.75,.8};
-    private double[] circley={.29,.34,.39,.44,.49,.54};
+    private double[] circley={.55,.6,.65,.7,.75,.8};
     private double ypos;
     private double initial;
-    private double nether;
-    private double offset;
     private double yInc;
     private double xInc;
     private int cNumber;
@@ -72,9 +68,9 @@ public class Connect4  extends JFrame implements ActionListener{
     public void slotOptions(){
 	slotOptions=new String [4][];
 	slotOptions[0]= new String [7];
-	slotOptions[1]= new String [8];
+	slotOptions[1]= new String [7];
 	slotOptions[2]= new String [9];
-	slotOptions[3]= new String [10];
+	slotOptions[3]= new String [11];
 	for (int i =0 ; i < 3 ; i++){
 	    for (int x =0 ; x < slotOptions[i].length ; x++){	       
 		slotOptions[i][x]="Column"+" "+(""+(x+1));
@@ -85,8 +81,6 @@ public class Connect4  extends JFrame implements ActionListener{
     }
   
     public void setVariables(){
-	nether=circley[0];
-	offset=.31;
 	canDo=true;
 	Animation=true;
 	draw=new boolean [6][7];
@@ -131,13 +125,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	return (int)(y*newy);
 
     }
-    
-    public int sizeyr(double newy){
-	Toolkit tk = Toolkit.getDefaultToolkit();  
-	int y = ((int) tk.getScreenSize().getHeight());
-	return (int)(y*newy*offset);
-
-    }
 
     public int size(int x,double y){
 	return (int)(x*y);
@@ -167,7 +154,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	Go.addActionListener(this);
 	Go.setVisible(true);
 	pane.add(Go);
-	/*/
 	Company= new JLabel("Byte Sized", SwingConstants.CENTER);
 	Company.setHorizontalAlignment(SwingConstants.CENTER);
 	Font font= new Font("TimesRoman", Font.PLAIN, 100);
@@ -178,7 +164,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	Company.setBackground(Color.BLACK);
 	pane.add(Company);
 	Company.repaint();
-	/*/
 	Title= new JTextField("Connect-N", SwingConstants.CENTER);
 	Title.setHorizontalAlignment(SwingConstants.CENTER);
 	Title.setBounds(sizex(0),sizey(.3),sizex(1),sizey(.025));
@@ -292,29 +277,11 @@ public class Connect4  extends JFrame implements ActionListener{
 	int cy=(int) (ySize*.9);
     }
     
-    public void paint(Graphics g){
-	db=createImage(getWidth(),getHeight());
-	dbg=db.getGraphics();
-	paintComponent(dbg);
-	g.drawImage(db,0,sizey(offset),this);
-
-
-    }
+  
     
-    public void paintComponent(Graphics g){
+    public void paint(Graphics g){
 	
 	if (reset){
-	    g.setColor(framec);
-	    g.fillRect(sizex(0),sizeyr(.22),sizex(1),sizey(.025));
-	    String m="Connect-N";
-	    Font font= new Font("TimesRoman", Font.PLAIN, 16);
-	    FontMetrics fm = g.getFontMetrics ( font );
-	    int sw = fm.stringWidth ( m );
-	    g.setFont ( font );
-	    g.setColor ( Color.BLACK );
-	    g.drawString ( m , ( this.getWidth() + sw ) / 2 - sw , sizeyr(.276));
-	    g.setColor(Color.BLUE);
-	    g.fillRect(sizex(.0),sizeyr(.3),sizex(1),sizey(1));
  	    System.out.println(printer(Connected));
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
@@ -358,7 +325,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 	if (!won){
 	if (recentz){
-	    g.fillRect(sizex(.0),sizeyr(.3),sizex(1),sizey(1));
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
 		    if (Connected[a][i].equals("_")){
@@ -380,23 +346,11 @@ public class Connect4  extends JFrame implements ActionListener{
 	    Go.setBounds(0,0,0,0);
 	    Go.setBackground(Background1);
 	    Go.repaint();
-	    g.setColor(framec);
-	    g.fillRect(sizex(0),sizeyr(.22),sizex(1),sizey(.025));
-	    String m="Connect-N";
-	    Font font= new Font("TimesRoman", Font.PLAIN, 16);
-	    FontMetrics fm = g.getFontMetrics ( font );
-	    int sw = fm.stringWidth ( m );
-	    g.setFont ( font );
-	    g.setColor ( Color.BLACK );
-	    g.drawString ( m , ( this.getWidth() + sw ) / 2 - sw , sizeyr(.276));
-	    /*/
-	      Company.setText("");
+	    Company.setText("");
 	    Company.setBounds(0,0,0,0);
 	    Company.setBackground(Background1);
 	    Company.repaint();
-	    /*/
-	    g.setColor(Color.BLUE);
-	    g.fillRect(sizex(.0),sizeyr(.3),sizex(1),sizey(1));
+	   
 	  
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
@@ -427,20 +381,11 @@ public class Connect4  extends JFrame implements ActionListener{
 	    }
 
 	    if (dropCircle){
-		for(int i=0 ; i < circley.length; i++){
-
-		    System.out.println(circley[i]);
-
-		}
-		    
 		if (turn){
 		    g.setColor(Color.YELLOW);
 		}
 		else{
 		    g.setColor(Color.RED);
-		}
-		if (initial<nether){
-		    g.setColor(Color.BLUE);
 		}
 		g.fillOval(sizex(circlex[columnSelected-1]),sizey(initial),sizex(.025),sizey(.03));
 		if(initial>(circley[((int)(ypos))])||ypos==0){
@@ -557,12 +502,6 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Connected=new String [6][7];
 		    circlex=new double []{.39,.42,.45,.48,.51,.54,.57};
 		    circley=new double []{.55,.6,.65,.7,.75,.8};;
-		    for (int i=0; i < circley.length ;i++){
-			circley[i]=circley[i]-.26;
-			circley[i]=Math.round(circley[i]*100.0)/100.0;
-		    }
-		    nether=circley[0];
-		    System.out.println(nether);
 		
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-5")){
@@ -571,14 +510,6 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Connected=new String [7][8];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57};
 		    circley=new double []{.5,.55,.6,.65,.7,.75,.8};
-		    for (int i=0; i < circley.length ;i++){
-			circley[i]=circley[i]-.26;
-			circley[i]=Math.round(circley[i]*100.0)/100.0;
-
-		    }
-		    nether=circley[0];
-		    System.out.println(nether);
-						
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-6")){
 		    cNumber=6;
@@ -586,13 +517,6 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Connected=new String [8][9];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6};
 		    circley=new double []{.5,.55,.6,.65,.7,.75,.8,.85};
-		    for (int i=0; i < circley.length ;i++){
-			circley[i]=circley[i]-.26;
-			circley[i]=Math.round(circley[i]*100.0)/100.0;
-
-		    }
-		    nether=circley[0];
-		    System.out.println(nether);
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		    cNumber=7;
@@ -600,13 +524,6 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Connected=new String [9][10];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
 		    circley=new double []{.45,.5,.55,.6,.65,.7,.75,.8,.85};
-		    for (int i=0; i < circley.length ;i++){
-			circley[i]=circley[i]-.26;
-			circley[i]=Math.round(circley[i]*100.0)/100.0;
-
-		    }
-		    nether=circley[0];
-		    System.out.println(nether);
 		}
 		turn=true;
 		paintit=false;
@@ -621,18 +538,20 @@ public class Connect4  extends JFrame implements ActionListener{
 		
 	if(e.getSource() == mode){
 	    if(!inProgress){
+		if (((String)mode.getSelectedItem()).equals("Connect-4")){
+		    cNumber=4;
+		    draw=new boolean [6][7];
+		    Connected=new String [6][7];
+		    circlex=new double []{.39,.42,.45,.48,.51,.54,.57};
+		    circley=new double []{.55,.6,.65,.7,.75,.8};;
+		
+		}
 		if (((String)mode.getSelectedItem()).equals("Connect-5")){
 		    cNumber=5;
 		    draw=new boolean [7][8];
 		    Connected=new String [7][8];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57};
 		    circley=new double []{.5,.55,.6,.65,.7,.75,.8};
-		    for (int i=0; i < circley.length ;i++){
-			circley[i]=circley[i]-.26;
-			circley[i]=Math.round(circley[i]*100.0)/100.0;
-
-		    }
-		    nether=circley[0];
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-6")){
 		    cNumber=6;
@@ -640,11 +559,6 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Connected=new String [8][9];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6};
 		    circley=new double []{.5,.55,.6,.65,.7,.75,.8,.85};
-		    for (int i=0; i < circley.length ;i++){
-			circley[i]=circley[i]-.26;
-			circley[i]=Math.round(circley[i]*100.0)/100.0;
-
-		    }
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		    cNumber=7;
@@ -652,14 +566,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Connected=new String [9][10];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
 		    circley=new double []{.45,.5,.55,.6,.65,.7,.75,.8,.85};
-		    for (int i=0; i < circley.length ;i++){
-			circley[i]=circley[i]-.26;
-			circley[i]=Math.round(circley[i]*100.0)/100.0;
-
-		    }
-		    nether=circley[0];
 		}
-		
 	    }
 	}
 	
@@ -690,9 +597,9 @@ public class Connect4  extends JFrame implements ActionListener{
 	    if (canDo){
 		columnSelected=chosen;
 		if( Connected[0][columnSelected-1].equals("_")){
-		    Drop.setForeground(Color.BLACK);
+		    Drop.setForeground(Color.GRAY);
 		    Drop.repaint();
-		    Reset.setForeground(Color.BLACK);
+		    Reset.setForeground(Color.GRAY);
 		    Reset.repaint();
 		    turn=!turn;
 		    if (turn){
@@ -705,7 +612,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		    }
 		    Turn.repaint();
 		    initial=circley[0]-yInc;
-		    System.out.println(initial+":This is Initail");
+		    System.out.println(initial);
 		    checkEmpty();
 		    dropCircle=true;
 		    canDo=false;
@@ -722,6 +629,7 @@ public class Connect4  extends JFrame implements ActionListener{
     public void insertion(){
 	String n=new String ((String)set.getSelectedItem());
 	chosen=Integer.parseInt(n.substring(n.length()-1));
+
 
     }
 
@@ -786,13 +694,13 @@ public class Connect4  extends JFrame implements ActionListener{
 
 
     public boolean move(){
-	System.out.println(ypos+":This is ypos");
+	System.out.println(ypos);
 	System.out.println(printer(Connected));
-	Timer timer = new Timer(500, new ActionListener() {
+	Timer timer = new Timer(10, new ActionListener() {
 		
 		public void actionPerformed(ActionEvent e) {
 	
-		    if (initial <((circley[((int)(ypos))]))-.05){
+		    if (initial <(circley[((int)(ypos))])){
 			initial+=yInc;
 		    } else {
 			((Timer)e.getSource()).stop();
