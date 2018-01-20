@@ -13,7 +13,7 @@ import javax.swing.plaf.ColorUIResource;
 import java.util.concurrent.TimeUnit;
 
 
-public class Connect4  extends JFrame implements ActionListener{
+public class Connect4  extends JFrame implements ActionListener , KeyListener{
     private Image db;
     private Graphics dbg;
     private Container pane;
@@ -28,6 +28,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private JTextField Player2;
     private JTextField Turn;
     private JTextField Title;
+    private JTextField set;
     private JLabel Company;
     private double[] circlex={.39,.42,.45,.48,.51,.54,.57};
     private double[] circley={.25,.3,.35,.4,.45,.5};
@@ -42,7 +43,6 @@ public class Connect4  extends JFrame implements ActionListener{
     private int columnSelected;
     private int column;
     private JComboBox<String> mode;
-    private JComboBox<String> set;
     private String [][] Connected;
     private String [][] data;
     private String slotOptions[][];
@@ -73,7 +73,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	slotOptions[1]= new String [8];
 	slotOptions[2]= new String [9];
 	slotOptions[3]= new String [10];
-	for (int i =0 ; i < 3 ; i++){
+	for (int i =0 ; i < slotOptions.length ; i++){
 	    for (int x =0 ; x < slotOptions[i].length ; x++){	       
 		slotOptions[i][x]="Column"+" "+(""+(x+1));
 	    }
@@ -174,7 +174,6 @@ public class Connect4  extends JFrame implements ActionListener{
 	Title.setVisible(true);
 	pane.add(Title);
 	Title.repaint();
-
 	Player1= new JTextField("Insert Name of Player 1");
 	Player1.setBounds(sizex(.1),sizey(.1),sizex(.2),sizey(.025));
 	Player1.setOpaque(true);
@@ -209,14 +208,15 @@ public class Connect4  extends JFrame implements ActionListener{
 	Player2.repaint();
     }
 
+
     public void  createTB(){
-	set = new JComboBox<>(slotOptions[cNumber-4]);
+	set = new JTextField("Insert Column Number",2);
 	set.setBounds(sizex(.4),sizey(.2),sizex(.2),sizey(.025));
 	set.setOpaque(true);
 	set.setForeground(Color.BLACK);
 	set.setBackground(framec);
 	set.setEnabled(true);
-	set.addActionListener(this);
+	set.addKeyListener(this);
 	set.setVisible(true);
 	pane.add(set);
 	set.repaint();
@@ -289,6 +289,7 @@ public class Connect4  extends JFrame implements ActionListener{
     public void paintComponent(Graphics g){
 	
 	if (reset){
+	 
 	    g.setColor(framec);
 	    g.fillRect(sizex(0),sizeyr(.22),sizex(1),sizey(.025));
 	    String m="Connect-N";
@@ -498,7 +499,23 @@ public class Connect4  extends JFrame implements ActionListener{
 	    pane.add(Start);
 	}
     }
+    public void keyTyped(KeyEvent e) {
+	char vChar = e.getKeyChar();
+	if (!(Character.isDigit(vChar)|| (vChar == KeyEvent.VK_BACK_SPACE)|| (vChar == KeyEvent.VK_DELETE))){
+	    e.consume();
+	}
+	if (set.getText().length()>=2){
+	    e.consume();
+	}
+    }
 
+    public void keyPressed(KeyEvent e) {
+    }
+
+    
+    public void keyReleased(KeyEvent e) {
+       
+    }
   
  
     public void actionPerformed(ActionEvent e){
@@ -522,7 +539,8 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Connected=new String [6][7];
 		    circlex=new double []{.39,.42,.45,.48,.51,.54,.57};
 		    circley=new double []{.25,.3,.35,.4,.45,.5};
-		
+
+
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-5")){
 		    cNumber=5;
@@ -530,21 +548,32 @@ public class Connect4  extends JFrame implements ActionListener{
 		    Connected=new String [7][8];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57};
 		    circley=new double []{.2,.25,.3,.35,.4,.45,.5};
-		}
+		   
+		    }
+		    
+
+		
 		if (((String)mode.getSelectedItem()).equals("Connect-6")){
 		    cNumber=6;
 		    draw=new boolean [8][9];
 		    Connected=new String [8][9];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6};
 		    circley=new double []{.2,.25,.3,.35,.4,.45,.5,.55};
-		}
+
+		    }
+
+		
 		if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		    cNumber=7;
 		    draw=new boolean [9][10];
 		    Connected=new String [9][10];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
 		    circley=new double []{.15,.2,.25,.3,.35,.4,.45,.5,.55};
-		}
+		   
+		    }
+
+		
+	
 		turn=true;
 		paintit=false;
 		editConnect();
@@ -609,6 +638,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	    Go.setEnabled(false);
 	}
 	if (e.getSource()==set){
+	  
 	    insertion();
 	    
 	    
@@ -617,6 +647,8 @@ public class Connect4  extends JFrame implements ActionListener{
 	if (e.getSource()==Drop){
 	    paintit=true;
 	    if (canDo){
+		insertion();
+		System.out.println(chosen);
 		columnSelected=chosen;
 		if( Connected[0][columnSelected-1].equals("_")){
 		    Drop.setForeground(Color.GRAY);
@@ -649,8 +681,8 @@ public class Connect4  extends JFrame implements ActionListener{
     }
 
     public void insertion(){
-	String n=new String ((String)set.getSelectedItem());
-	chosen=Integer.parseInt(n.substring(n.length()-1));
+	String n=new String ((String)set.getText());
+	chosen=Integer.parseInt(n);
 
 
     }
