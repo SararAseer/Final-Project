@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Connect4  extends JFrame implements ActionListener{
-    //Instructions
     private Container pane;
     private Graphics dbg;
     private JButton Start;
@@ -29,8 +28,8 @@ public class Connect4  extends JFrame implements ActionListener{
     private JTextField Turn;
     private JTextField Title;
     private JLabel Company;
-    private double[] circlex={.39,.42,.45,.48,.51,.54,.57,.36,.33};
-    private double[] circley={.55,.6,.65,.7,.75,.8,.5,.45,.4};
+    private double[] circlex={.39,.42,.45,.48,.51,.54,.57};
+    private double[] circley={.55,.6,.65,.7,.75,.8};
     private double ypos;
     private double initial;
     private double yInc;
@@ -52,6 +51,7 @@ public class Connect4  extends JFrame implements ActionListener{
     private Color Background1;
     private Color framec;
     private boolean modeActive;
+    private boolean inProgress;
     private boolean turn;
     private boolean redraw;
     private boolean reset;
@@ -495,6 +495,27 @@ public class Connect4  extends JFrame implements ActionListener{
 
 	if(e.getSource() == Reset){
 	    if(canDo){
+		if (((String)mode.getSelectedItem()).equals("Connect-4")){
+		    cNumber=4;
+		    draw=new boolean [6][7];
+		    Connected=new String [6][7];
+		
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-5")){
+		    cNumber=5;
+		    draw=new boolean [6][7];
+		    Connected=new String [6][7];
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-6")){
+		    cNumber=6;
+		    draw=new boolean [8][9];
+		    Connected=new String [8][9];
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-7")){
+		    cNumber=7;
+		    draw=new boolean [10][11];
+		    Connected=new String [10][11];
+		}
 		turn=true;
 		paintit=false;
 		editConnect();
@@ -507,30 +528,33 @@ public class Connect4  extends JFrame implements ActionListener{
 	}
 		
 	if(e.getSource() == mode){
-	    if (((String)mode.getSelectedItem()).equals("Connect-4")){
-		cNumber=4;
-		draw=new boolean [6][7];
-		Connected=new String [6][7];
+	    if(!inProgress){
+		if (((String)mode.getSelectedItem()).equals("Connect-4")){
+		    cNumber=4;
+		    draw=new boolean [6][7];
+		    Connected=new String [6][7];
 		
-	    }
-	    if (((String)mode.getSelectedItem()).equals("Connect-5")){
-		cNumber=5;
-		draw=new boolean [6][7];
-		Connected=new String [6][7];
-	    }
-	    if (((String)mode.getSelectedItem()).equals("Connect-6")){
-		cNumber=6;
-		draw=new boolean [8][9];
-		Connected=new String [8][9];
-	    }
-	    if (((String)mode.getSelectedItem()).equals("Connect-7")){
-		cNumber=7;
-		draw=new boolean [10][11];
-		Connected=new String [10][11];
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-5")){
+		    cNumber=5;
+		    draw=new boolean [6][7];
+		    Connected=new String [6][7];
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-6")){
+		    cNumber=6;
+		    draw=new boolean [8][9];
+		    Connected=new String [8][9];
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-7")){
+		    cNumber=7;
+		    draw=new boolean [10][11];
+		    Connected=new String [10][11];
+		}
 	    }
 	}
 	if(e.getSource() == Go){    
-	    turn=false;	   
+	    turn=false;
+	    inProgress=true;
 	    p1=Player1.getText();
 	    p2=Player2.getText();
 	    Player1.setEditable(false);
