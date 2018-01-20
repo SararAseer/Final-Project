@@ -141,16 +141,16 @@ public class Animations extends JFrame implements ActionListener{
 	     for (int i =0; i<Connected[s].length; i++){
 		 if (Connected[s][i].equals("_")){
 		     g.setColor(Color.BLACK);
-		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]-.2),sizex(.025),sizey(.03));
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]+.1),sizex(.025),sizey(.03));
 
 		 }
 		 if (!(Connected[s][i].equals("_")) && Connected[s][i].equals("Yellow")){
 		     g.setColor(Color.YELLOW);
-		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]-.2),sizex(.025),sizey(.03));
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]+.1),sizex(.025),sizey(.03));
 		 }
 		 else if(!(Connected[s][i].equals("_")) && Connected[s][i].equals("Red")){
 		     g.setColor(Color.RED);
-		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]-.2),sizex(.025),sizey(.03));
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]+.1),sizex(.025),sizey(.03));
 		 }				    
 	     }
 
