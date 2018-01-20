@@ -503,8 +503,8 @@ public class Connect4  extends JFrame implements ActionListener{
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-5")){
 		    cNumber=5;
-		    draw=new boolean [6][7];
-		    Connected=new String [6][7];
+		    draw=new boolean [7][8];
+		    Connected=new String [7][8];
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-6")){
 		    cNumber=6;
@@ -513,8 +513,8 @@ public class Connect4  extends JFrame implements ActionListener{
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		    cNumber=7;
-		    draw=new boolean [10][11];
-		    Connected=new String [10][11];
+		    draw=new boolean [9][10];
+		    Connected=new String [9][10];
 		}
 		turn=true;
 		paintit=false;
@@ -537,8 +537,8 @@ public class Connect4  extends JFrame implements ActionListener{
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-5")){
 		    cNumber=5;
-		    draw=new boolean [6][7];
-		    Connected=new String [6][7];
+		    draw=new boolean [7][8];
+		    Connected=new String [7][8];
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-6")){
 		    cNumber=6;
@@ -547,11 +547,12 @@ public class Connect4  extends JFrame implements ActionListener{
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		    cNumber=7;
-		    draw=new boolean [10][11];
-		    Connected=new String [10][11];
+		    draw=new boolean [9][10];
+		    Connected=new String [9][10];
 		}
 	    }
 	}
+	
 	if(e.getSource() == Go){    
 	    turn=false;
 	    inProgress=true;
