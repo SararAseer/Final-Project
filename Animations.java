@@ -17,7 +17,7 @@ public class Animations extends JFrame implements ActionListener{
     private double[] circlex={.0,.2,.4,.6,.8,1};
     private double[] circlex2={.1,.3,.5,.7,.9};
     private double[] circlex3={.39,.42,.45,.48,.51,.54,.57};
-    private double[] circley={.35,.4,.45,.5,.55,.6};
+    private double[] circley={.55,.6,.65,.7,.75,.8};
     private double initial;
     private Container pane;
     private Color Background1 = new Color(242, 229, 255);
@@ -51,7 +51,7 @@ public class Animations extends JFrame implements ActionListener{
 	this.setLocationRelativeTo(null);
 	this.setBackground(Background1);
 	pane.setBackground(Background1);
-	/*/
+	
 	Start = new JButton("Start");
 	Start.setBounds(sizex(.4),sizey(.4),sizex(.1),sizey(.1));
 	Start.setBorderPainted(false);
@@ -68,7 +68,7 @@ public class Animations extends JFrame implements ActionListener{
 		Connected[x][q]=("_");
 	    }
 	    }
-	    /*/
+	    
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
@@ -80,6 +80,13 @@ public class Animations extends JFrame implements ActionListener{
 
     }
 
+    public void setxy(double[] inputx, double []inputy){
+	circlex3=inputx;
+	circley=inputy;
+
+
+    }
+    
     public int sizey(double newy){
 	Toolkit tk = Toolkit.getDefaultToolkit();  
 	int y = ((int) tk.getScreenSize().getHeight());
@@ -108,42 +115,42 @@ public class Animations extends JFrame implements ActionListener{
     
     public void paintComponent(Graphics g){
 	g.setColor(framec);
-	g.fillRect(sizex(0),sizey(.18),sizex(1),sizey(.12));
-	g.fillRect(sizex(0),sizey(.68),sizex(1),sizey(.12));
+	g.fillRect(sizex(0),sizey(.08),sizex(1),sizey(.12));
+	g.fillRect(sizex(0),sizey(.78),sizex(1),sizey(.12));
 	String m=Player+" HAS WON!";
-	Font font= new Font("TimesRoman", Font.PLAIN, 50);
+	Font font= new Font("TimesRoman", Font.PLAIN, 25);
 	FontMetrics fm = g.getFontMetrics ( font );
 	int sw = fm.stringWidth ( m );
 	g.setFont ( font );
 	g.setColor ( Color.BLACK );
-	g.drawString ( m , ( this.getWidth() + sw ) / 2 - sw , sizey(.12));
+	g.drawString ( m , ( this.getWidth() + sw ) / 2 - sw , sizey(.06));
 	String a= "Byte Sized";
 	sw = fm.stringWidth ( a);
-	g.drawString ( a , ( this.getWidth() + sw ) / 2 - sw , sizey(.92));		
+	g.drawString ( a , ( this.getWidth() + sw ) / 2 - sw , sizey(.96));		
         for (int i = 0; i < circlex.length; i++) {
 	    g.setColor(Color.YELLOW);
-	    g.fillOval(sizex(circlex[i]), sizey(.2), sizex(.04), sizex(.04) );
-	    g.fillOval(sizex(circlex[i]), sizey(.7), sizex(.04), sizex(.04) );
+	    g.fillOval(sizex(circlex[i]), sizey(.1), sizex(.04), sizex(.04) );
+	    g.fillOval(sizex(circlex[i]), sizey(.8), sizex(.04), sizex(.04) );
         }
 	 for (int i = 0; i < circlex2.length; i++) {
 	     g.setColor(Color.RED);
-	    g.fillOval(sizex(circlex2[i]), sizey(.2), sizex(.04), sizex(.04) );
-	    g.fillOval(sizex(circlex2[i]), sizey(.7), sizex(.04), sizex(.04) );
+	    g.fillOval(sizex(circlex2[i]), sizey(.1), sizex(.04), sizex(.04) );
+	    g.fillOval(sizex(circlex2[i]), sizey(.8), sizex(.04), sizex(.04) );
 	 }
 	 for (int s =Connected.length-1; s>-1; s--){
 	     for (int i =0; i<Connected[s].length; i++){
 		 if (Connected[s][i].equals("_")){
 		     g.setColor(Color.BLACK);
-		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]),sizex(.025),sizey(.03));
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]-.2),sizex(.025),sizey(.03));
 
 		 }
 		 if (!(Connected[s][i].equals("_")) && Connected[s][i].equals("Yellow")){
 		     g.setColor(Color.YELLOW);
-		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]),sizex(.025),sizey(.03));
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]-.2),sizex(.025),sizey(.03));
 		 }
 		 else if(!(Connected[s][i].equals("_")) && Connected[s][i].equals("Red")){
 		     g.setColor(Color.RED);
-		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]),sizex(.025),sizey(.03));
+		     g.fillOval(sizex(circlex3[i]),sizey(circley[s]-.2),sizex(.025),sizey(.03));
 		 }				    
 	     }
 

@@ -317,6 +317,7 @@ public class Connect4  extends JFrame implements ActionListener{
 	    else{
 		x.setText(p2);
 	    }
+	    x.setxy(circlex,circley);
 	    x.Board(Connected);
 	    x.move();
 	    x.setVisible(true);
@@ -495,26 +496,34 @@ public class Connect4  extends JFrame implements ActionListener{
 
 	if(e.getSource() == Reset){
 	    if(canDo){
-		if (((String)mode.getSelectedItem()).equals("Connect-4")){
+        	if (((String)mode.getSelectedItem()).equals("Connect-4")){
 		    cNumber=4;
 		    draw=new boolean [6][7];
 		    Connected=new String [6][7];
+		    circlex=new double []{.39,.42,.45,.48,.51,.54,.57};
+		    circley=new double []{.55,.6,.65,.7,.75,.8};;
 		
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-5")){
 		    cNumber=5;
 		    draw=new boolean [7][8];
 		    Connected=new String [7][8];
+		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57};
+		    circley=new double []{.5,.55,.6,.65,.7,.75,.8};
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-6")){
 		    cNumber=6;
 		    draw=new boolean [8][9];
 		    Connected=new String [8][9];
+		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6};
+		    circley=new double []{.5,.55,.6,.65,.7,.75,.8,.85};
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		    cNumber=7;
 		    draw=new boolean [9][10];
 		    Connected=new String [9][10];
+		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
+		    circley=new double []{.45,.5,.55,.6,.65,.7,.75,.8,.85};
 		}
 		turn=true;
 		paintit=false;
@@ -533,22 +542,30 @@ public class Connect4  extends JFrame implements ActionListener{
 		    cNumber=4;
 		    draw=new boolean [6][7];
 		    Connected=new String [6][7];
+		    circlex=new double []{.39,.42,.45,.48,.51,.54,.57};
+		    circley=new double []{.55,.6,.65,.7,.75,.8};;
 		
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-5")){
 		    cNumber=5;
 		    draw=new boolean [7][8];
 		    Connected=new String [7][8];
+		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57};
+		    circley=new double []{.5,.55,.6,.65,.7,.75,.8};
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-6")){
 		    cNumber=6;
 		    draw=new boolean [8][9];
 		    Connected=new String [8][9];
+		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6};
+		    circley=new double []{.5,.55,.6,.65,.7,.75,.8,.85};
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		    cNumber=7;
 		    draw=new boolean [9][10];
 		    Connected=new String [9][10];
+		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
+		    circley=new double []{.45,.5,.55,.6,.65,.7,.75,.8,.85};
 		}
 	    }
 	}
