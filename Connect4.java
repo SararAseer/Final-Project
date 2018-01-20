@@ -91,7 +91,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	offset=.3;
 	xInc=.3;
 	Connected=new String [6][7];
-	chosen=1;
 	cNumber=4;
 	paintit=false;
 	slotOptions();
@@ -645,35 +644,41 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	}
 
 	if (e.getSource()==Drop){
-	    paintit=true;
-	    if (canDo){
-		insertion();
-		System.out.println(chosen);
-		columnSelected=chosen;
-		if( Connected[0][columnSelected-1].equals("_")){
-		    Drop.setForeground(Color.GRAY);
-		    Drop.repaint();
-		    Reset.setForeground(Color.GRAY);
-		    Reset.repaint();
-		    turn=!turn;
-		    if (turn){
-			Turn.setText(p1+"'s "+"Turn");
-			Turn.setBackground(Color.YELLOW);
+	    try{
+		paintit=true;
+		if (canDo){
+		    insertion();
+		    System.out.println(chosen);
+		    columnSelected=chosen;
+		    if( Connected[0][columnSelected-1].equals("_")){
+			Drop.setForeground(Color.BLACK);
+			Drop.repaint();
+			Reset.setForeground(Color.BLACK);
+			Reset.repaint();
+			turn=!turn;
+			if (turn){
+			    Turn.setText(p1+"'s "+"Turn");
+			    Turn.setBackground(Color.YELLOW);
+			}
+			else{
+			    Turn.setText(p2+"'s "+ "Turn");
+			    Turn.setBackground(Color.RED);
+			}
+			Turn.repaint();
+			initial=circley[0]-yInc;
+			System.out.println(initial);
+			checkEmpty();
+			dropCircle=true;
+			canDo=false;
+			move();
 		    }
-		    else{
-			Turn.setText(p2+"'s "+ "Turn");
-			Turn.setBackground(Color.RED);
-		    }
-		    Turn.repaint();
-		    initial=circley[0]-yInc;
-		    System.out.println(initial);
-		    checkEmpty();
-		    dropCircle=true;
-		    canDo=false;
-		    move();
 		}
 	    }
+	    catch(Exception m){
+		set.setText("Use a valid number to play, :)");
+	    } 
 	}
+	
 	if(e.getSource()==check){
 	    win();
 	}
@@ -681,10 +686,13 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     }
 
     public void insertion(){
-	String n=new String ((String)set.getText());
-	chosen=Integer.parseInt(n);
-
-
+	try{
+	    String n=new String ((String)set.getText());
+	    chosen=Integer.parseInt(n);
+	}
+	catch(Exception e){
+	    set.setText("This is not a number, try again buddy");
+	}
     }
 
     public void win(){
