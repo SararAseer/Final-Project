@@ -14,8 +14,9 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Connect4  extends JFrame implements ActionListener{
-    private Container pane;
+    private Image db;
     private Graphics dbg;
+    private Container pane;
     private JButton Start;
     private JButton Drop;
     private JButton Go;
@@ -277,9 +278,16 @@ public class Connect4  extends JFrame implements ActionListener{
 	int cy=(int) (ySize*.9);
     }
     
-  
+   public void paint(Graphics g){
+	db=createImage(getWidth(),getHeight());
+	dbg=db.getGraphics();
+	paintComponent(dbg);
+	g.drawImage(db,0,sizey(.3),this);
+
+
+    }
     
-    public void paint(Graphics g){
+    public void paintComponent(Graphics g){
 	
 	if (reset){
  	    System.out.println(printer(Connected));
@@ -501,7 +509,7 @@ public class Connect4  extends JFrame implements ActionListener{
 		    draw=new boolean [6][7];
 		    Connected=new String [6][7];
 		    circlex=new double []{.39,.42,.45,.48,.51,.54,.57};
-		    circley=new double []{.55,.6,.65,.7,.75,.8};;
+		    circley=new double []{.25,.3,.35,.4,.45,.5};;
 		
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-5")){
@@ -509,21 +517,21 @@ public class Connect4  extends JFrame implements ActionListener{
 		    draw=new boolean [7][8];
 		    Connected=new String [7][8];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57};
-		    circley=new double []{.5,.55,.6,.65,.7,.75,.8};
+		    circley=new double []{.2,.25,.3,.35,.4,.45,.5};
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-6")){
 		    cNumber=6;
 		    draw=new boolean [8][9];
 		    Connected=new String [8][9];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6};
-		    circley=new double []{.5,.55,.6,.65,.7,.75,.8,.85};
+		    circley=new double []{.2,.25,.3,.35,.4,.45,.5,.55};
 		}
 		if (((String)mode.getSelectedItem()).equals("Connect-7")){
 		    cNumber=7;
 		    draw=new boolean [9][10];
 		    Connected=new String [9][10];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
-		    circley=new double []{.45,.5,.55,.6,.65,.7,.75,.8,.85};
+		    circley=new double []{.15,.2,.25,.3,.35,.4,.45,.5,.55};
 		}
 		turn=true;
 		paintit=false;
@@ -696,11 +704,11 @@ public class Connect4  extends JFrame implements ActionListener{
     public boolean move(){
 	System.out.println(ypos);
 	System.out.println(printer(Connected));
-	Timer timer = new Timer(10, new ActionListener() {
+	Timer timer = new Timer(50, new ActionListener() {
 		
 		public void actionPerformed(ActionEvent e) {
 	
-		    if (initial <(circley[((int)(ypos))])){
+		    if (initial <(circley[((int)(ypos))]-.01)){
 			initial+=yInc;
 		    } else {
 			((Timer)e.getSource()).stop();
