@@ -258,6 +258,17 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	Reset.setVisible(true);
 	pane.add(Reset);
 	Reset.repaint();
+	Instructions = new JButton("Instructions");
+	Instructions.setBounds(sizex(.7),sizey(.15),sizex(.2),sizey(.025));
+	Instructions.setBorderPainted(false);
+	Instructions.setOpaque(true);
+	Instructions.setForeground(Color.BLACK);
+	Instructions.setBackground(framec);
+	Instructions.setEnabled(true);
+	Instructions.addActionListener(this);
+	Instructions.setVisible(true);
+	pane.add(Instructions);
+	Instructions.repaint();
     }
     
     public Connect4(){
@@ -532,6 +543,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     public void actionPerformed(ActionEvent e){
 	pane = this.getContentPane();
 	String s = e.getActionCommand();
+	
 	if(e.getSource() == Start){
 	    Start.setText("");
 	    Start.setBounds(0,0,0,0);	    
