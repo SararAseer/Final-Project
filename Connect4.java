@@ -148,16 +148,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 
     }
 
-
-    
-	
-
-
-
-    
-
-    
-
     public void IntroScreen(){
 	pane = this.getContentPane();
 	Toolkit tk = Toolkit.getDefaultToolkit();  
@@ -811,12 +801,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	}
 	return false;
     }
-    
-	
-	
-		
-
-
 
     public boolean move(){
 	System.out.println(ypos);
