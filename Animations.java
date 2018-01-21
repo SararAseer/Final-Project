@@ -51,7 +51,7 @@ public class Animations extends JFrame implements ActionListener{
 	this.setLocationRelativeTo(null);
 	this.setBackground(Background1);
 	pane.setBackground(Background1);
-	
+	/*/
 	Start = new JButton("Start");
 	Start.setBounds(sizex(.4),sizey(.4),sizex(.1),sizey(.1));
 	Start.setBorderPainted(false);
@@ -62,6 +62,7 @@ public class Animations extends JFrame implements ActionListener{
 	Start.setEnabled(true);
 	Start.addActionListener(this);
 	pane.add(Start);
+	/*/
 	Connected=new String[6][7];
 	for (int x = 0 ; x < Connected.length ; x++){
 	    for (int q = 0 ; q < Connected[x].length ; q++){
