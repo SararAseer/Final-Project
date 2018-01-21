@@ -543,7 +543,10 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     public void actionPerformed(ActionEvent e){
 	pane = this.getContentPane();
 	String s = e.getActionCommand();
-	
+	if(e.getSource() == Instructions){
+	    JOptionPane.showMessageDialog(null, InstructionsText , "Instructions" , JOptionPane.INFORMATION_MESSAGE);
+	 
+	}
 	if(e.getSource() == Start){
 	    Start.setText("");
 	    Start.setBounds(0,0,0,0);	    
