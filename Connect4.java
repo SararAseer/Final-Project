@@ -85,6 +85,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     }
   
     public void setVariables(){
+	InstructionsText="To play this game first insert a number in the box below 'Reset'. This number should correspond to the column u want to put your piece into. After you do this press 'Set' to put the piece into that column."+"\n"+"Following this the turn number will change and the other played will go. If at any point in any path (Vertical/Horizontal/Diagnol) the connect number is reached the player will win the Game. Below is the"+"\n"+"signifance of the boxes:" +"\n" +"Chooser- New Game Connect Number"+"\n"+"Reset- New Game"+"\n"+"Insert Column Number- Column number you want to put the piece into"+"\n"+"Set-Drop Piece"+"\n"+"Instructions-Pop up Instructions"+"\n"+"Turn-Current player turn";
 	canDo=true;
 	Animation=true;
 	draw=new boolean [6][7];
@@ -930,6 +931,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    boolean checkerLeft = true;
 	    while (checkerRight && rightCol<data[0].length-1 && rowUp<data.length-1){
 		if (!(data[rowUp+1][rightCol+1].equals(color))){
+
 		    checkerRight=false;
 		}
 		else{
