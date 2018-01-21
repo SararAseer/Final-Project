@@ -43,7 +43,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     private int columnSelected;
     private int column;
     private JComboBox<String> mode;
-
     private String [][] Connected;
     private String [][] data;
     private String slotOptions[][];
@@ -86,7 +85,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     }
   
     public void setVariables(){
-	InstructionsText="To play this game first insert a number in the box below 'Reset'. This number should correspond to the column u want to put your piece into. After you do this press 'Set' to put the piece into that column."+"\n"+"Following this the turn number will change and the other played will go. If at any point in any path (Vertical/Horizontal/Diagnol) the connect number is reached the player will win the Game. Below is the"+"\n"+"signifance of the boxes:" +"\n" +"Chooser- New Game Connect Number"+"\n"+"Reset- New Game"+"\n"+"Insert Column Number- Column number you want to put the piece into"+"\n"+"Set-Drop Piece"+"\n"+"Instructions-Pop up Instructions"+"\n"+"Turn-Current player turn";
 	canDo=true;
 	Animation=true;
 	draw=new boolean [6][7];
@@ -103,10 +101,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	options = new String[] {"Connect-4","Connect-5","Connect-6","Connect-7","Connect-8","Connect-9"};
 
     }
-    private int column; //set column = to the column chosen by the player every move
-    
-    Color Background1 = new Color(242, 229, 255);
-    Color framec = new Color(125, 217, 254);
 
     public static void main(String[] args) {
 	Connect4 Test = new Connect4();
@@ -148,6 +142,16 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	return (int)(x*y);
 
     }
+
+
+    
+	
+
+
+
+    
+
+    
 
     public void IntroScreen(){
 	pane = this.getContentPane();
@@ -254,17 +258,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	Reset.setVisible(true);
 	pane.add(Reset);
 	Reset.repaint();
-	Instructions = new JButton("Instructions");
-	Instructions.setBounds(sizex(.7),sizey(.15),sizex(.2),sizey(.025));
-	Instructions.setBorderPainted(false);
-	Instructions.setOpaque(true);
-	Instructions.setForeground(Color.BLACK);
-	Instructions.setBackground(framec);
-	Instructions.setEnabled(true);
-	Instructions.addActionListener(this);
-	Instructions.setVisible(true);
-	pane.add(Instructions);
-	Instructions.repaint();
     }
     
     public Connect4(){
@@ -539,10 +532,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     public void actionPerformed(ActionEvent e){
 	pane = this.getContentPane();
 	String s = e.getActionCommand();
-	if(e.getSource() == Instructions){
-	    JOptionPane.showMessageDialog(null, InstructionsText , "Instructions" , JOptionPane.INFORMATION_MESSAGE);
-	 
-	}
 	if(e.getSource() == Start){
 	    Start.setText("");
 	    Start.setBounds(0,0,0,0);	    
@@ -802,6 +791,12 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	}
 	return false;
     }
+    
+	
+	
+		
+
+
 
     public boolean move(){
 	System.out.println(ypos);
@@ -848,6 +843,9 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    }
 	}
     }
+    
+    
+    
     public boolean Connected(int row,int col,String color){
 	return (checkVertical(row,col,color)   ||
 	        checkHorizontal(row,col,color) ||
@@ -855,38 +853,25 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	        checkDiagonal2(row,col,color));
      }
          public boolean checkVertical(int row,int col, String color){
-    //checks in all directions if the player has won
-    public boolean Connected(int col,String color){
-	int r=0;
-	while (r<Connected.length-1 && (Connected[r][col].equals("_"))){
-	    r++;
-	}
-	//System.out.println("Connected row:"+r);
-	return (checkVertical(r,col,color)   ||
-		checkHorizontal(r,col,color) ||
-		checkDiagonal1(r,col,color)  ||
-		checkDiagonal2(r,col,color));
-    }
-    public boolean checkVertical(int row,int col, String color){
 	try{
-	    //System.out.println(Connected.length);
+	    //System.out.println(data.length);
 	    int rowUp=row;
 	    int rowDown=row;
 	    int sum=1;
 	    boolean checkerUp = true;
 	    boolean checkerDown = true;
-	    while (checkerUp && rowUp<Connected.length-1){
-		if (!(Connected[rowUp+1][col].equals(color))){
+	    while (checkerUp && rowUp<data.length-1){
+		if (!(data[rowUp+1][col].equals(color))){
 		    checkerUp=false;
 		}
 		else{
 		    sum++;
 		    rowUp++;
-		    //System.out.println(rowUp);
+		    System.out.println(rowUp);
 		}
 	    }
 	    while (checkerDown && rowDown>0){
-		if (!(Connected[rowDown-1][col].equals(color))){
+		if (!(data[rowDown-1][col].equals(color))){
 		    checkerDown=false;
 		}
 		else{
@@ -894,11 +879,13 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 		    rowDown--;
 		}
 	    }
+	    // System.out.println(sum);
+	    //System.out.println(cNumber);
+	    //System.out.println(sum>=cNumber);
 	    return sum >= cNumber;
 	}
-	catch(ArrayIndexOutOfBoundsException e){
-	    System.out.println(e);}
-	catch(IndexOutOfBoundsException e){System.out.println(e);}
+	catch(ArrayIndexOutOfBoundsException e){}
+	catch(IndexOutOfBoundsException e){}
 	return false;
     }
     public boolean checkHorizontal(int row,int col, String color){
@@ -908,8 +895,8 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerRight && rightCol<Connected[0].length-1){
-		if (!(Connected[row][rightCol+1].equals(color))){
+	    while (checkerRight && rightCol<data[0].length-1){
+		if (!(data[row][rightCol+1].equals(color))){
 		    checkerRight=false;
 		}
 		else{
@@ -918,7 +905,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 		}
 	    }
 	    while (checkerLeft && leftCol>0){
-		if (!(Connected[row][leftCol-1].equals(color))){
+		if (!(data[row][leftCol-1].equals(color))){
 		    checkerLeft=false;
 		}
 		else{
@@ -932,7 +919,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	catch(IndexOutOfBoundsException e){}
 	return false;
     }
-    //top left to bottom right
+    //checks top left to bottom right
     public boolean checkDiagonal1(int row,int col, String color){
 	try{
 	    int rightCol=col;
@@ -944,9 +931,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    boolean checkerLeft = true;
 	    while (checkerRight && rightCol<data[0].length-1 && rowUp<data.length-1){
 		if (!(data[rowUp+1][rightCol+1].equals(color))){
-
-	    while (checkerRight && rightCol<Connected[0].length-1 && rowUp<Connected.length-1){
-		if (!(Connected[rowUp+1][rightCol+1].equals(color))){
 		    checkerRight=false;
 		}
 		else{
@@ -957,7 +941,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 		}
 	    }
 	    while (checkerLeft && leftCol>0 &&  rowDown>0){
-		if (!(Connected[rowDown-1][leftCol-1].equals(color))){
+		if (!(data[rowDown-1][leftCol-1].equals(color))){
 		    checkerLeft=false;
 		}
 		else{
@@ -973,7 +957,8 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	catch(IndexOutOfBoundsException e){}
 	return false;
     }
-    public boolean checkDiagonal2(int row,int col, String color){
+    //checks bottom left to top right 
+        public boolean checkDiagonal2(int row,int col, String color){
 	try{
 	    int rightCol=col;
 	    int leftCol=col;
@@ -982,8 +967,8 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    int sum=1;
 	    boolean checkerRight = true;
 	    boolean checkerLeft = true;
-	    while (checkerLeft && leftCol>0 && rowUp<Connected.length-1){ //&& leftCol>0 &&  rowDown>0){
-		if (!(Connected[rowUp+1][leftCol-1].equals(color))){
+	    while (checkerLeft && leftCol>0 && rowUp<data.length-1){ //&& leftCol>0 &&  rowDown>0){
+		if (!(data[rowUp+1][leftCol-1].equals(color))){
 		    checkerLeft=false;
 		}
 		else{
@@ -993,8 +978,8 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 		    rowUp++;
 		}
 	    }
-	    while (checkerRight && rightCol<Connected[0].length-1 && rowDown>0){ //&& rightCol<Connected[0].length-1 && rowUp<Connected.length-1){
-		if (!(Connected[rowDown-1][rightCol+1].equals(color))){
+	    while (checkerRight && rightCol<data[0].length-1 && rowDown>0){ //&& rightCol<data[0].length-1 && rowUp<data.length-1){
+		if (!(data[rowDown-1][rightCol+1].equals(color))){
 		    checkerRight=false;
 		}
 		else{
@@ -1006,31 +991,9 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    }
 	    return sum >= cNumber;
 	}
-	
+
 	catch(ArrayIndexOutOfBoundsException e){}
 	catch(IndexOutOfBoundsException e){}
 	return false;
     }
-    public void doRed(){
-	int r=0;
-	while (r<data.length-1 && (data[r+1][column].equals("_"))){
-	    r++;
-	}
-	data[r][column]="red";
-	return;
-    }
-    public void doYellow(){
-	int r=0;
-	while (r<data.length-1 && (data[r+1][column].equals("_"))){
-	    r++;
-	}
-	data[r][column]="yellow";
-	return;
-    }
 }
-
-
-
-
-
-
