@@ -113,6 +113,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 		    Test.repaint();
 		}
 	    });
+	Test.setResizable(false);
 	Test.setVisible(true);
     }
     
