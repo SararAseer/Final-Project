@@ -303,6 +303,11 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
  	    System.out.println(printer(Connected));
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
+		    if (a==Connected.length-1){
+			g.setColor(Color.BLACK);
+			g.drawString("C:"+(i+1),sizex(circlex[i]+.0045) ,sizey(circley[circley.length-1]+yInc));
+		    }
+		    
 		    if (Connected[a][i].equals("_")){
 			
 			g.setColor(Color.BLACK);
@@ -376,6 +381,10 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	  
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
+		    if (a==Connected.length-1){
+			g.setColor(Color.BLACK);
+			g.drawString("C:"+(i+1),sizex(circlex[i]+.0045) ,sizey(circley[circley.length-1]+yInc));
+		    }
 		    if (Connected[a][i].equals("_")){
 			
 			g.setColor(Color.BLACK);
