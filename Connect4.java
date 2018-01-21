@@ -11,8 +11,6 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 import java.util.concurrent.TimeUnit;
-import javax.swing.JOptionPane;
-
 
 
 public class Connect4  extends JFrame implements ActionListener , KeyListener{
@@ -47,11 +45,11 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     private JComboBox<String> mode;
     private String [][] Connected;
     private String [][] data;
+    private String InstructionsText;
     private String slotOptions[][];
     private String [] options;
     private String p1;
     private String p2;
-    private String InstructionsText;
     private String color;
     private Color Background1;
     private Color framec;
@@ -71,11 +69,13 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 
 
     public void slotOptions(){
-	slotOptions=new String [4][];
+	slotOptions=new String [6][];
 	slotOptions[0]= new String [7];
 	slotOptions[1]= new String [8];
 	slotOptions[2]= new String [9];
 	slotOptions[3]= new String [10];
+	slotOptions[4]= new String [11];
+	slotOptions[5]= new String [12];
 	for (int i =0 ; i < slotOptions.length ; i++){
 	    for (int x =0 ; x < slotOptions[i].length ; x++){	       
 		slotOptions[i][x]="Column"+" "+(""+(x+1));
@@ -86,7 +86,8 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     }
   
     public void setVariables(){
-	InstructionsText="To play this game first insert a number in the box below 'Reset'. This number should correspond to the column u want to put your piece into. After you do this press 'Set' to put the piece into that column."+"\n"+"Following this the turn number will change and the other played will go. If at any point in any path (Vertical/Horizontal/Diagnol) the connect number is reached the player will win the Game. Below is the"+"\n"+"signifance of the boxes:" +"\n" +"Chooser- New Game Connect Number"+"\n"+"Reset- New Game"+"\n"+"Insert Column Number- Column number you want to put the piece into"+"\n"+"Set-Drop Piece"+"\n"+"Instructions-Pop up Instructions"+"\n"+"Turn-Current player turn";
+		InstructionsText="To play this game first insert a number in the box below 'Reset'. This number should correspond to the column u want to put your piece into. After you do this press 'Set' to put the piece into that column."+"\n"+"Following this the turn number will change and the other played will go. If at any point in any path (Vertical/Horizontal/Diagnol) the connect number is reached the player will win the Game. Below is the"+"\n"+"signifance of the boxes:" +"\n" +"Chooser- New Game Connect Number"+"\n"+"Reset- New Game"+"\n"+"Insert Column Number- Column number you want to put the piece into"+"\n"+"Set-Drop Piece"+"\n"+"Instructions-Pop up Instructions"+"\n"+"Turn-Current player turn";
+
 	canDo=true;
 	Animation=true;
 	draw=new boolean [6][7];
@@ -100,7 +101,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	slotOptions();
 	Background1 = new Color(242, 229, 255);
 	framec = new Color(125, 217, 254);
-	options = new String[] {"Connect-4","Connect-5","Connect-6","Connect-7"};
+	options = new String[] {"Connect-4","Connect-5","Connect-6","Connect-7","Connect-8","Connect-9"};
 
     }
 
@@ -317,6 +318,11 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
  	    System.out.println(printer(Connected));
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
+		    if (a==Connected.length-1){
+			g.setColor(Color.BLACK);
+			g.drawString("C:"+(i+1),sizex(circlex[i]+.0045) ,sizey(circley[circley.length-1]+yInc));
+		    }
+		    
 		    if (Connected[a][i].equals("_")){
 			
 			g.setColor(Color.BLACK);
@@ -390,6 +396,10 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	  
 	    for (int a =Connected.length-1; a>-1; a--){
 		for (int i =0; i<Connected[a].length; i++){
+		    if (a==Connected.length-1){
+			g.setColor(Color.BLACK);
+			g.drawString("C:"+(i+1),sizex(circlex[i]+.0045) ,sizey(circley[circley.length-1]+yInc));
+		    }
 		    if (Connected[a][i].equals("_")){
 			
 			g.setColor(Color.BLACK);
@@ -540,7 +550,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    JOptionPane.showMessageDialog(null, InstructionsText , "Instructions" , JOptionPane.INFORMATION_MESSAGE);
 	 
 	}
-		
 	if(e.getSource() == Start){
 	    Start.setText("");
 	    Start.setBounds(0,0,0,0);	    
@@ -592,7 +601,22 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 		   
 		    }
 
-		
+		if (((String)mode.getSelectedItem()).equals("Connect-8")){
+		    cNumber=8;
+		    draw=new boolean [10][11];
+		    Connected=new String [10][11];
+		    circlex=new double []{.33,.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
+		    circley=new double []{.15,.2,.25,.3,.35,.4,.45,.5,.55,.6};
+
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-9")){
+		    cNumber=9;
+		    draw=new boolean [11][12];
+		    Connected=new String [11][12];
+		    circlex=new double []{.33,.36,.39,.42,.45,.48,.51,.54,.57,.6,.63,.66};
+		    circley=new double []{.1,.15,.2,.25,.3,.35,.4,.45,.5,.55,.6};
+
+		}
 	
 		turn=true;
 		paintit=false;
@@ -635,6 +659,22 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 		    Connected=new String [9][10];
 		    circlex=new double []{.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
 		    circley=new double []{.15,.2,.25,.3,.35,.4,.45,.5,.55};
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-8")){
+		    cNumber=8;
+		    draw=new boolean [10][11];
+		    Connected=new String [10][11];
+		    circlex=new double []{.33,.36,.39,.42,.45,.48,.51,.54,.57,.6,.63};
+		    circley=new double []{.15,.2,.25,.3,.35,.4,.45,.5,.55,.6};
+
+		}
+		if (((String)mode.getSelectedItem()).equals("Connect-9")){
+		    cNumber=9;
+		    draw=new boolean [11][12];
+		    Connected=new String [11][12];
+		    circlex=new double []{.33,.36,.39,.42,.45,.48,.51,.54,.57,.6,.63,.66};
+		    circley=new double []{.1,.15,.2,.25,.3,.35,.4,.45,.5,.55,.6};
+
 		}
 	    }
 	}
@@ -975,3 +1015,4 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	return false;
     }
 }
+
