@@ -25,6 +25,7 @@ public class Animations extends JFrame implements ActionListener{
     private Color framec2 = new Color(107, 0, 254);
     private double xinc;
     private JButton Start;
+    private JButton end;
     private String[][] Connected;
     private String Player;
     private boolean yes;
@@ -36,12 +37,14 @@ public class Animations extends JFrame implements ActionListener{
     
     public static void main(String[] args) {
 	Animations Test = new Animations();
+	Test.move();
 	Test.setVisible(true);
 	
 	
     }
-    
-    public Animations(){
+
+  
+      public Animations(){
 	pane = this.getContentPane();
 	Toolkit tk = Toolkit.getDefaultToolkit();
 	this.setSize(sizex(.99),sizey(.99));
@@ -51,18 +54,26 @@ public class Animations extends JFrame implements ActionListener{
 	this.setLocationRelativeTo(null);
 	this.setBackground(Background1);
 	pane.setBackground(Background1);
-	/*/
-	Start = new JButton("Start");
-	Start.setBounds(sizex(.4),sizey(.4),sizex(.1),sizey(.1));
+	Start = new JButton("tt");
+	Start.setBounds(0,0,sizex(.3),sizey(1));
 	Start.setBorderPainted(false);
-	Start.setOpaque(true);
-	Start.setContentAreaFilled(true);
+	Start.setOpaque(false);
+	Start.setContentAreaFilled(false);
 	Start.setForeground(Color.BLACK);
 	Start.setBackground(framec);
 	Start.setEnabled(true);
 	Start.addActionListener(this);
 	pane.add(Start);
-	/*/
+	end = new JButton("t123123123123132123t");
+	end.setBounds(sizex(.5),0,sizex(1),sizey(1));
+	end.setBorderPainted(false);
+	end.setOpaque(false);
+	end.setContentAreaFilled(false);
+	end.setForeground(Color.BLACK);
+	end.setBackground(framec);
+	end.setEnabled(true);
+	end.addActionListener(this);
+	pane.add(end);
 	Connected=new String[6][7];
 	for (int x = 0 ; x < Connected.length ; x++){
 	    for (int q = 0 ; q < Connected[x].length ; q++){
@@ -99,6 +110,7 @@ public class Animations extends JFrame implements ActionListener{
 	db=createImage(getWidth(),getHeight());
 	dbg=db.getGraphics();
 	paintComponent(dbg);
+	
 	g.drawImage(db,0,0,this);
 
 
@@ -127,7 +139,9 @@ public class Animations extends JFrame implements ActionListener{
 	g.drawString ( m , ( this.getWidth() + sw ) / 2 - sw , sizey(.06));
 	String a= "Byte Sized";
 	sw = fm.stringWidth ( a);
-	g.drawString ( a , ( this.getWidth() + sw ) / 2 - sw , sizey(.96));		
+	g.drawString ( a , ( this.getWidth() + sw ) / 2 - sw , sizey(.96));
+	g.drawString ("Restart" , sizex(.1),sizey(.4));
+	g.drawString ( "Exit" , sizex(.8),sizey(.4));		
         for (int i = 0; i < circlex.length; i++) {
 	    g.setColor(Color.YELLOW);
 	    g.fillOval(sizex(circlex[i]), sizey(.1), sizex(.04), sizex(.04) );
@@ -187,9 +201,13 @@ public class Animations extends JFrame implements ActionListener{
     }
 
         public void actionPerformed(ActionEvent e){
+	    if(e.getSource()==end){
+		this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	    }
 	    if(e.getSource()==Start){
-		move();
-		System.out.println("Start");
+		Connect4 j = new Connect4();
+		j.setVisible(true);
+		this.dispose();
 
 	    }
 	}
