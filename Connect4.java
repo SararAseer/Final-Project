@@ -146,16 +146,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 
     }
 
-
-    
-	
-
-
-
-    
-
-    
-
     public void IntroScreen(){
 	pane = this.getContentPane();
 	Toolkit tk = Toolkit.getDefaultToolkit();  
@@ -225,12 +215,12 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	set.setVisible(true);
 	pane.add(set);
 	set.repaint();
-	Turn= new JTextField("Turn");
+	Turn= new JTextField(p1+"'s Turn");
 	Turn.setBounds(sizex(.7),sizey(.2),sizex(.2),sizey(.025));
 	Turn.setOpaque(true);
 	Turn.setHorizontalAlignment(SwingConstants.CENTER);
 	Turn.setForeground(Color.BLACK);
-	Turn.setBackground(framec);
+	Turn.setBackground(Color.YELLOW);
 	Turn.setEditable(false);
 	Turn.setVisible(true);
 	pane.add(Turn);
@@ -308,7 +298,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	 
 	    g.setColor(framec);
 	    g.fillRect(sizex(0),sizeyr(.22),sizex(1),sizey(.025));
-	    String m="Connect-N";
+	    String m="Connect-"+cNumber;
 	    Font font= new Font("TimesRoman", Font.PLAIN, 16);
 	    FontMetrics fm = g.getFontMetrics ( font );
 	    int sw = fm.stringWidth ( m );
@@ -386,7 +376,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    Go.repaint();
 	    g.setColor(framec);
 	    g.fillRect(sizex(0),sizeyr(.22),sizex(1),sizey(.025));
-	    String m="Connect-N";
+	    String m="Connect-"+cNumber;
 	    Font font= new Font("TimesRoman", Font.PLAIN, 16);
 	    FontMetrics fm = g.getFontMetrics ( font );
 	    int sw = fm.stringWidth ( m );
@@ -686,6 +676,8 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    Title.setText("");
 	    Title.setBackground(Background1);
 	    p2=Player2.getText();
+	    Player1.setText("Player 1:"+p1);
+	    Player2.setText("Player 2:"+p2);
 	    Player1.setEditable(false);
 	    Player2.setEditable(false);
 	    int num=cNumber-4;	   
@@ -1015,4 +1007,3 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	return false;
     }
 }
-
