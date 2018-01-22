@@ -45,6 +45,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     private JComboBox<String> mode;
     private String [][] Connected;
     private String [][] data;
+    private String InstructionsText;
     private String slotOptions[][];
     private String [] options;
     private String p1;
@@ -85,6 +86,8 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     }
   
     public void setVariables(){
+		InstructionsText="To play this game first insert a number in the box below 'Reset'. This number should correspond to the column u want to put your piece into. After you do this press 'Set' to put the piece into that column."+"\n"+"Following this the turn number will change and the other played will go. If at any point in any path (Vertical/Horizontal/Diagnol) the connect number is reached the player will win the Game. Below is the"+"\n"+"signifance of the boxes:" +"\n" +"Chooser- New Game Connect Number"+"\n"+"Reset- New Game"+"\n"+"Insert Column Number- Column number you want to put the piece into"+"\n"+"Set-Drop Piece"+"\n"+"Instructions-Pop up Instructions"+"\n"+"Turn-Current player turn";
+
 	canDo=true;
 	Animation=true;
 	draw=new boolean [6][7];
@@ -142,16 +145,6 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	return (int)(x*y);
 
     }
-
-
-    
-	
-
-
-
-    
-
-    
 
     public void IntroScreen(){
 	pane = this.getContentPane();
@@ -222,12 +215,12 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	set.setVisible(true);
 	pane.add(set);
 	set.repaint();
-	Turn= new JTextField("Turn");
+	Turn= new JTextField(p1+"'s Turn");
 	Turn.setBounds(sizex(.7),sizey(.2),sizex(.2),sizey(.025));
 	Turn.setOpaque(true);
 	Turn.setHorizontalAlignment(SwingConstants.CENTER);
 	Turn.setForeground(Color.BLACK);
-	Turn.setBackground(framec);
+	Turn.setBackground(Color.YELLOW);
 	Turn.setEditable(false);
 	Turn.setVisible(true);
 	pane.add(Turn);
@@ -258,6 +251,17 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	Reset.setVisible(true);
 	pane.add(Reset);
 	Reset.repaint();
+	Instructions = new JButton("Instructions");
+	Instructions.setBounds(sizex(.7),sizey(.15),sizex(.2),sizey(.025));
+	Instructions.setBorderPainted(false);
+	Instructions.setOpaque(true);
+	Instructions.setForeground(Color.BLACK);
+	Instructions.setBackground(framec);
+	Instructions.setEnabled(true);
+	Instructions.addActionListener(this);
+	Instructions.setVisible(true);
+	pane.add(Instructions);
+	Instructions.repaint();
     }
     
     public Connect4(){
@@ -294,7 +298,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	 
 	    g.setColor(framec);
 	    g.fillRect(sizex(0),sizeyr(.22),sizex(1),sizey(.025));
-	    String m="Connect-N";
+	    String m="Connect-"+cNumber;
 	    Font font= new Font("TimesRoman", Font.PLAIN, 16);
 	    FontMetrics fm = g.getFontMetrics ( font );
 	    int sw = fm.stringWidth ( m );
@@ -372,7 +376,7 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    Go.repaint();
 	    g.setColor(framec);
 	    g.fillRect(sizex(0),sizeyr(.22),sizex(1),sizey(.025));
-	    String m="Connect-N";
+	    String m="Connect-"+cNumber;
 	    Font font= new Font("TimesRoman", Font.PLAIN, 16);
 	    FontMetrics fm = g.getFontMetrics ( font );
 	    int sw = fm.stringWidth ( m );
@@ -532,6 +536,10 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
     public void actionPerformed(ActionEvent e){
 	pane = this.getContentPane();
 	String s = e.getActionCommand();
+	if(e.getSource() == Instructions){
+	    JOptionPane.showMessageDialog(null, InstructionsText , "Instructions" , JOptionPane.INFORMATION_MESSAGE);
+	 
+	}
 	if(e.getSource() == Start){
 	    Start.setText("");
 	    Start.setBounds(0,0,0,0);	    
@@ -668,6 +676,8 @@ public class Connect4  extends JFrame implements ActionListener , KeyListener{
 	    Title.setText("");
 	    Title.setBackground(Background1);
 	    p2=Player2.getText();
+	    Player1.setText("Player 1:"+p1);
+	    Player2.setText("Player 2:"+p2);
 	    Player1.setEditable(false);
 	    Player2.setEditable(false);
 	    int num=cNumber-4;	   
